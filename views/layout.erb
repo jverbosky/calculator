@@ -23,11 +23,15 @@
       <div class="row">
 
         <div class="row">
-          <textarea id="userInput" readonly></textarea>
+          <textarea style="resize:none" rows="4" cols="25" id="userInput" readonly></textarea>
         </div>
 
         <div class="row">
           <button id="btn1">show user_input</button>
+        </div>
+
+        <div class="row">
+          <button class="clear">clear user_input</button>
         </div>
 
         <div class="row">
@@ -61,6 +65,7 @@
             </tr>
             <tr>
               <td><button class="buttons">0</button></td>
+              <td><button class="buttons">.</button></td>
               <td><form method="post" action="get_num_2">
                 <input type="text" name="user_input" hidden>
                 <input type="submit" value="+">

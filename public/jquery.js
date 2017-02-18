@@ -16,6 +16,10 @@ $(document).ready(function () {
         var cntrl = $(this).html();
         $("#userInput").append(cntrl);
     });
+    $(".clear").click(function () {
+        // var cntrl = $(this).html();
+        $("#userInput").val('');
+    });
     $("#btn1").click(function () {
         alert(  $("#userInput").val()  );
     });
