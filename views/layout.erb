@@ -1,0 +1,74 @@
+<!--
+/views/layout.erb
+- used to host common content for ISBN Validator and ISBN Validator Results pages
+-->
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Calculator</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="style.css">
+    <!-- <link rel="icon" href="/images/favicon.ico?" type="image/x-icon">  # added to get favicon to load -->
+  </head>
+  <body>
+  <header>
+    <h1>Calculator</h1>
+  </header>
+  <section>
+    <div class="row">
+      <div>
+            <textarea readonly>
+3 + 5 = 8
+            </textarea>
+            <table>
+              <tr>
+                <td><button>7</button></td>
+                <td><button>8</button></td>
+                <td><button>9</button></td>
+                <td><button>/</button></td>
+              </tr>
+              <tr>
+                <td><button>4</button></td>
+                <td><button>5</button></td>
+                <td><button>6</button></td>
+
+                <form method="post" action="submit_number">
+                  <input type="number" name="digit" hidden>
+                    <td><button>*</button></td>
+                </form>
+
+              </tr>
+              <tr>
+                <td><button>1</button></td>
+                <td><button>2</button></td>
+                <td><button>3</button></td>
+
+                <form method="post" action="submit_number">
+                  <input type="number" name="digit" hidden>
+                    <td><button>-</button></td>
+                </form>
+
+              </tr>
+              <tr>
+                <td><button>0</button></td>
+                <td><button>.</button></td>
+
+                <form method="post" action="calculate_result">
+                  <input type="number" name="operation" hidden>
+                    <td><button>=</button></td>
+                </form>
+
+                <form method="post" action="submit_number">
+                  <input type="number" name="digit" hidden>
+                    <td><button>+</button></td>
+                </form>
+
+              </tr>
+            </table>
+
+      </div>
+    </div>
+  </section>
+  </body>
+</html>
