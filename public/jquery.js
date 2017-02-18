@@ -7,6 +7,21 @@
 $(document).ready(function () {
     $(".buttons").click(function () {
         var cntrl = $(this).html();
-        $("#txt-area").append(cntrl);
+        $("#userInput").append(cntrl);
+    });
+    $("#btn1").click(function () {
+        alert(  $("#userInput").val()  );
     });
 });
+
+// playing around here to try and collect user input from text area
+
+// $(document).ready(function () {
+//   var user_input = $("#text_area");
+// });
+
+// $(document).ready(function () {
+//     $('#btn1').click(function() {
+//         alert(  $("#userInput").val()  );
+//     });
+// });

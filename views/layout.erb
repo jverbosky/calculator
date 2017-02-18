@@ -23,7 +23,10 @@
       <div class="row">
 
         <div class="row">
-          <textarea id="txt-area" readonly></textarea>  <!-- research grabbing text from here -->
+          <!-- <textarea id="userInput" readonly></textarea> -->
+          <textarea id="userInput" cols="50" rows="3"></textarea>
+          <button id="btn1">1: $("#userInput").val()</button>
+Use this if you have jQuery
         </div>
 
         <div class="row">
@@ -32,16 +35,16 @@
               <td><button class="buttons">7</button></td>
               <td><button class="buttons">8</button></td>
               <td><button class="buttons">9</button></td>
-              <td><form method="post" action="submit_num_1">
+              <td><form method="post" id="divide" action="get_num_2">
                 <input type="text" name="user_input" hidden>
-                <input type="submit" value="/"></td>
-              </form>
+                <input type="submit" value="/">
+              </form></td>
             </tr>
             <tr>
               <td><button class="buttons">4</button></td>
               <td><button class="buttons">5</button></td>
               <td><button class="buttons">6</button></td>
-              <td><form method="post" action="submit_num_1">
+              <td><form method="post" action="get_num_2">
                 <input type="text" name="user_input" hidden>
                 <input type="submit" value="*"></td>
               </form>
@@ -50,14 +53,14 @@
               <td><button class="buttons">1</button></td>
               <td><button class="buttons">2</button></td>
               <td><button class="buttons">3</button></td>
-              <td><form method="post" action="submit_num_1">
+              <td><form method="post" action="get_num_2">
                 <input type="text" name="user_input" hidden>
                 <input type="submit" value="-">
               </form></td>
             </tr>
             <tr>
               <td><button class="buttons">0</button></td>
-              <td><form method="post" action="submit_num_1">
+              <td><form method="post" action="get_num_2">
                 <input type="text" name="user_input" hidden>
                 <input type="submit" value="+">
               </form></td>
