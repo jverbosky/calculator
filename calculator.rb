@@ -14,21 +14,30 @@ def parse_operator(input)
 end
 
 def parse_number(input)
-  number = input[0..-2].to_i
+  (input.chars.include? ".") ? input.to_f : input.to_i
 end
 
 def get_result(input, num_2)
   num_1 = parse_number(input)
   operator = parse_operator(input)
-  num_2 = num_2.to_i
+  num_2 = parse_number(num_2)
   result = calculate(num_1, operator, num_2)
 end
 
-puts get_result("123+", "456")
-puts get_result("123-", "456")
-puts get_result("3*", "456")
-puts get_result("123/", "4")
-puts get_result("123/", "0")
+# Sandbox testing
+# puts parse_number("123.456+")
+# puts parse_number("0-")
+
+# puts get_result("123+", "456")
+# puts get_result("123-", "456")
+# puts get_result("3*", "456")
+# puts get_result("123/", "4")
+# puts get_result("123/", "0")
+# puts get_result("123.456+", "456.789")
+# puts get_result("123.456-", "456.789")
+# puts get_result("1.23*", "456.78")
+# puts get_result("1.23/", "4.56")
+# puts get_result("1.23/", "0")
 # p parse_operator("123+")  # "+"
 # p parse_number("123+")
 # puts add(3, 4)
