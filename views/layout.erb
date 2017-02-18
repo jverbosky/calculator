@@ -19,51 +19,60 @@
   </header>
   <section>
 
-    <textarea id="txt-area" readonly></textarea>
+    <div>
+      <div class="row">
 
-    <table>
-      <tr>
-        <button class="buttons">7</button>
-        <button class="buttons">8</button>
-        <button class="buttons">9</button>
-        <form method="post" action="submit_num_1">
-          <input type="text" name="user_input">
-          <input type="submit" value="/">
-        </form>
-      </tr>
-      <tr>
-        <button class="buttons">4</button>
-        <button class="buttons">5</button>
-        <button class="buttons">6</button>
-        <form method="post" action="submit_num_1">
-          <input type="text" name="user_input">
-          <input type="submit" value="*">
-        </form>
-      </tr>
-      <tr>
-        <button class="buttons">1</button>
-        <button class="buttons">2</button>
-        <button class="buttons">3</button>
-        <form method="post" action="submit_num_1">
-          <input type="text" name="user_input">
-          <input type="submit" value="-">
-        </form>
-      </tr>
-      <tr>
-        <button class="buttons">0</button>
-        <form method="post" action="submit_num_1">
-          <input type="text" name="user_input">
-          <input type="submit" value="+">
-        </form>
-      </tr>
-      <tr>
-        <form method="post" action="calculate_result">
-          <input type="text" name="num_2">
-          <input type="submit" value="=">
-        </form>
-      </tr>
-    </table>
+        <div class="row">
+          <textarea id="txt-area" readonly></textarea>
+        </div>
 
+        <div class="row">
+          <table>
+            <tr>
+              <td><button class="buttons">7</button></td>
+              <td><button class="buttons">8</button></td>
+              <td><button class="buttons">9</button></td>
+              <td><form method="post" action="submit_num_1">
+                <input type="text" name="user_input" hidden>
+                <input type="submit" value="/"></td>
+              </form>
+            </tr>
+            <tr>
+              <td><button class="buttons">4</button></td>
+              <td><button class="buttons">5</button></td>
+              <td><button class="buttons">6</button></td>
+              <td><form method="post" action="submit_num_1">
+                <input type="text" name="user_input" hidden>
+                <input type="submit" value="*"></td>
+              </form>
+            </tr>
+            <tr>
+              <td><button class="buttons">1</button></td>
+              <td><button class="buttons">2</button></td>
+              <td><button class="buttons">3</button></td>
+              <td><form method="post" action="submit_num_1">
+                <input type="text" name="user_input" hidden>
+                <input type="submit" value="-">
+              </form></td>
+            </tr>
+            <tr>
+              <td><button class="buttons">0</button></td>
+              <td><form method="post" action="submit_num_1">
+                <input type="text" name="user_input" hidden>
+                <input type="submit" value="+">
+              </form></td>
+            </tr>
+            <tr>
+              <td><form method="post" action="calculate_result">
+                <input type="text" name="num_2" hidden>
+                <input type="submit" value="=">
+              </form></td>
+            </tr>
+          </table>
+        </div>
+
+      </div>
+    </div>
 
   </section>
   </body>
