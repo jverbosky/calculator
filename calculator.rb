@@ -2,7 +2,7 @@ def calculate(num_1, operator, num_2)
   result = 0
   case operator
     when "+" then result = num_1 + num_2
-    when "-" then result = num_1 - num_2
+    when "-" then result = num_1 - num_2  # TO-DO: subtracting floats a bit unexpected, add logic later
     when "*" then result = num_1 * num_2
     when "/" then num_2 == 0 ? result = "Error" : result = num_1.to_f / num_2
   end
