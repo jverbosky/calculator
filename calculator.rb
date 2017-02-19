@@ -57,10 +57,6 @@ end
 
 # Sandbox testing
 # puts get_result("2*3+1")
-
-# puts parse_number("123.456+")
-# puts parse_number("0-")
-
 # puts get_result("123+", "456")
 # puts get_result("123-", "456")
 # puts get_result("3*", "456")
@@ -71,11 +67,3 @@ end
 # puts get_result("1.23*", "456.78")
 # puts get_result("1.23/", "4.56")
 # puts get_result("1.23/", "0")
-# p parse_operator("123+")  # "+"
-# p parse_number("123+")
-# puts add(3, 4)
-# puts subtract(3, 8)
-# puts multiply(3, 5)
-# puts multiply(5, 0)
-# puts divide(4, 2)
-# puts divide(4, 0)
