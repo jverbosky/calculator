@@ -17,48 +17,7 @@
   <header>
   </header>
   <section>
-
-    <div>
-      <div class="row">
-
-        <div class="table">
-            <form class="tr" method="post" action="get_num_2">
-              <span class="td"><textarea style="resize:none" rows="1" cols="24" id="userInput" name="userInput" readonly></textarea></span>
-              <span class="td"><input class="button submit" type="submit" value="="></span>
-            </form>
-            <div class="row">
-              <div class="tr">
-                <span class="td"><button class="button input">7</button></span>
-                <span class="td"><button class="button input">8</button></span>
-                <span class="td"><button class="button input">9</button></span>
-                <span class="td"><button class="button input">/</button></span>
-              </div>
-              <div class="tr">
-                <span class="td"><button class="button input">4</button></span>
-                <span class="td"><button class="button input">5</button></span>
-                <span class="td"><button class="button input">6</button></span>
-                <span class="td"><button class="button input">*</button></span>
-              </div>
-              <div class="tr">
-                <span class="td"><button class="button input">1</button></span>
-                <span class="td"><button class="button input">2</button></span>
-                <span class="td"><button class="button input">3</button></span>
-                <span class="td"><button class="button input">-</button></span>
-              </div>
-              <div class="tr">
-                <span class="td"><button class="button input">0</button></span>
-                <span class="td"><button class="button dot">.</button></span>
-                <span class="td"><button class="button sign">±</button></span>
-                <span class="td"><button class="button input">+</button></span>
-              </div>
-              <div class="tr">
-                <span class="td"><button class="button clear">C</button></span>
-            </div>
-        </div>
-
-      </div>
-    </div>
-
+  <%= yield %>  <!-- load unique content from other .erb files -->
   </section>
   </body>
 </html>

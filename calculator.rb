@@ -39,10 +39,10 @@ end
 # Method to compute the result of all mathmatical expressions (multiple supported)
 def get_result(string)
   numbers = get_numbers(string)
-  num_1 = evaluate_number(numbers[number_index])
   number_index = 0
   operators = get_operators(string)
   operator_index = 0
+  num_1 = evaluate_number(numbers[number_index])
   result = 0
   while number_index < operators.length
     operator = operators[operator_index]
@@ -56,6 +56,8 @@ def get_result(string)
 end
 
 # Sandbox testing
+# puts get_result("2*3+1")
+
 # puts parse_number("123.456+")
 # puts parse_number("0-")
 

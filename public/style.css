@@ -19,7 +19,8 @@ textarea {
 
 h1 {
   font-size: 36px;
-  text-align: center;
+  /*text-align: center;*/
+  /*margin-left: 0%;*/
   color: #808080;
 }
 
