@@ -1,3 +1,30 @@
+# Method to parse multiple numbers (integer and float) and operators from string
+def parse_string(string)
+  array = string.gsub(" ", "").split(/(\d+\.?\d*)/).reject(&:empty?)
+end
+
+# Method to obtain all numbers from parse_string() output
+def get_numbers(string)
+  array = parse_string(string)
+  numbers = []
+  array.each { |char| numbers.push(char) if char =~ /(\d+(\.\d+)?)/ }
+  return numbers
+end
+
+# Method to obtain all operators from parse_string() output
+def get_operators(string)
+  array = parse_string(string)
+  operators = []
+  array.each { |char| operators.push(char) if char !~ /(\d+(\.\d+)?)/ }
+  return operators
+end
+
+# Method to convert a numeric string into an integer or float
+def evaluate_number(numeric_string)
+  (numeric_string.include? ".") ? numeric_string.to_f : numeric_string.to_i
+end
+
+# Method to perform appropriate calculation using provided numbers and operator
 def calculate(num_1, operator, num_2)
   result = 0
   case operator
@@ -9,19 +36,23 @@ def calculate(num_1, operator, num_2)
   return result
 end
 
-def parse_operator(input)
-  operator = input[-1]
-end
-
-def parse_number(input)
-  (input.chars.include? ".") ? input.to_f : input.to_i
-end
-
-def get_result(input, num_2)
-  num_1 = parse_number(input)
-  operator = parse_operator(input)
-  num_2 = parse_number(num_2)
-  result = calculate(num_1, operator, num_2)
+# Method to compute the result of all mathmatical expressions (multiple supported)
+def get_result(string)
+  numbers = get_numbers(string)
+  num_1 = evaluate_number(numbers[number_index])
+  number_index = 0
+  operators = get_operators(string)
+  operator_index = 0
+  result = 0
+  while number_index < operators.length
+    operator = operators[operator_index]
+    num_2 = evaluate_number(numbers[number_index + 1])
+    result = calculate(num_1, operator, num_2)
+    number_index += 1
+    operator_index += 1
+    num_1 = result
+  end
+  return result
 end
 
 # Sandbox testing
