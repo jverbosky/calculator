@@ -19,20 +19,19 @@
 $(document).ready(function () {
 
     // have button values appear/append in textarea field (#userInput)
-    $(".button").click(function () {
+    $(".input").click(function () {
         var buttonValue = $(this).html();
         $("#userInput").val($("#userInput").val() + buttonValue);
+    });
+
+    // flip the sign (negative/positive) of the current number
+    $(".sign").click(function () {
+        $("#userInput").val($("#userInput").val() * -1);
     });
 
     // clear contents of textarea field
     $(".clear").click(function () {
         $("#userInput").val('');
-    });
-
-    // show contents of textarea field
-    // groundwork for passing values via post
-    $("#btn1").click(function () {
-        alert(  $("#userInput").val()  );
     });
 
 });

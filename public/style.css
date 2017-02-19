@@ -13,6 +13,7 @@ div {
 }
 
 textarea {
+  font-size: 20px;
   text-align: right;
 }
 
@@ -32,17 +33,52 @@ img {
   background-color: #eee9e9;
 }
 
+DIV.table {
+  display: table;
+}
+
+FORM.tr, DIV.tr {
+  display: table-row;
+}
+
+SPAN.td {
+  display: table-cell;
+}
+
+.button {
+    background-color: #C0C0C0;
+    border: none;
+    padding: 10px;
+    margin: 5px;
+    width: 50px;
+    border-radius: 8px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 4px #999999;
+    outline: none;
+}
+
+.button:hover {
+  background-color: #808080;
+}
+
+.button:active {
+  background-color: #808080;
+  box-shadow: 0 2px #666666;
+  transform: translateY(2px);
+}
+
+.submit {
+  position: relative;
+  bottom: -270px;  /*-270px*/
+  left: -81px;  /*-81px*/
+}
+
 .row {
   display: table;
-  border-spacing: 20px;
-}
-
-.column {
-  display: table-cell;
-  vertical-align: top;
-}
-
-td {
-  border: 1px solid #c5c4c4;
-  padding: 10px;
+  border-spacing: 5px;
 }

@@ -15,69 +15,45 @@
   </head>
   <body>
   <header>
-    <h1>Calculator</h1>
   </header>
   <section>
 
     <div>
       <div class="row">
 
-        <div class="row">
-          <textarea style="resize:none" rows="4" cols="25" id="userInput" readonly></textarea>
-        </div>
-
-        <div class="row">
-          <button id="btn1">show user_input</button>
-        </div>
-
-        <div class="row">
-          <button class="clear">clear user_input</button>
-        </div>
-
-        <div class="row">
-          <table>
-            <tr>
-              <td><button class="button">7</button></td>
-              <td><button class="button">8</button></td>
-              <td><button class="button">9</button></td>
-              <td><form method="post" id="divide" action="get_num_2">
-                <input type="text" name="user_input" hidden>
-                <input type="submit" value="/">
-              </form></td>
-            </tr>
-            <tr>
-              <td><button class="button">4</button></td>
-              <td><button class="button">5</button></td>
-              <td><button class="button">6</button></td>
-              <td><form method="post" action="get_num_2">
-                <input type="text" name="user_input" hidden>
-                <input type="submit" value="*"></td>
-              </form>
-            </tr>
-            <tr>
-              <td><button class="button">1</button></td>
-              <td><button class="button">2</button></td>
-              <td><button class="button">3</button></td>
-              <td><form method="post" action="get_num_2">
-                <input type="text" name="user_input" hidden>
-                <input type="submit" value="-">
-              </form></td>
-            </tr>
-            <tr>
-              <td><button class="button">0</button></td>
-              <td><button class="button">.</button></td>
-              <td><form method="post" action="get_num_2">
-                <input type="text" name="user_input" hidden>
-                <input type="submit" value="+">
-              </form></td>
-            </tr>
-            <tr>
-              <td><form method="post" action="calculate_result">
-                <input type="text" name="num_2" hidden>
-                <input type="submit" value="=">
-              </form></td>
-            </tr>
-          </table>
+        <div class="table">
+            <form class="tr" method="post" action="get_num_2">
+              <span class="td"><textarea style="resize:none" rows="1" cols="24" id="userInput" name="userInput" readonly></textarea></span>
+              <span class="td"><input class="button submit" type="submit" value="="></span>
+            </form>
+            <div class="row">
+              <div class="tr">
+                <span class="td"><button class="button input">7</button></span>
+                <span class="td"><button class="button input">8</button></span>
+                <span class="td"><button class="button input">9</button></span>
+                <span class="td"><button class="button input">/</button></span>
+              </div>
+              <div class="tr">
+                <span class="td"><button class="button input">4</button></span>
+                <span class="td"><button class="button input">5</button></span>
+                <span class="td"><button class="button input">6</button></span>
+                <span class="td"><button class="button input">*</button></span>
+              </div>
+              <div class="tr">
+                <span class="td"><button class="button input">1</button></span>
+                <span class="td"><button class="button input">2</button></span>
+                <span class="td"><button class="button input">3</button></span>
+                <span class="td"><button class="button input">-</button></span>
+              </div>
+              <div class="tr">
+                <span class="td"><button class="button input">0</button></span>
+                <span class="td"><button class="button input">.</button></span>
+                <span class="td"><button class="button sign">±</button></span>
+                <span class="td"><button class="button input">+</button></span>
+              </div>
+              <div class="tr">
+                <span class="td"><button class="button clear">C</button></span>
+            </div>
         </div>
 
       </div>

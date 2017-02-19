@@ -7,7 +7,7 @@ get '/' do  # route to load the Calculator Start page
 end
 
 post '/get_num_2' do  # route that accesses input from form's post > action
-  user_input = params[:user_input]  # params used to access input from post > action (name="ISBN")
+  user_input = params[:userInput]  # params used to access input from post > action (name="ISBN")
   "User input: #{user_input}"
   # erb :calculate  # load isbn_status.erb file with ISBN check results output
 end

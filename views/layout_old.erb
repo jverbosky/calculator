@@ -1,0 +1,70 @@
+<!--
+/views/layout.erb
+- used to host common content for ISBN Validator and ISBN Validator Results pages
+-->
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Calculator</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="style.css">
+    <!-- <link rel="icon" href="/images/favicon.ico?" type="image/x-icon">  # added to get favicon to load -->
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js'></script>
+    <script type="text/javascript" src="jquery.js"></script>
+  </head>
+  <body>
+  <header>
+    <h1>Calculator</h1>
+  </header>
+  <section>
+
+    <div>
+      <div class="row">
+
+        <div class="row">
+          <form method="post" action="get_num_2">
+            <textarea style="resize:none" rows="4" cols="25" id="userInput" name="userInput" readonly></textarea>
+            <input type="submit" value="=">
+          </form>
+        </div>
+        <div class="row">
+          <table>
+            <tr>
+              <td><button class="button">7</button></td>
+              <td><button class="button">8</button></td>
+              <td><button class="button">9</button></td>
+              <td><button class="button">/</button></td>
+            </tr>
+            <tr>
+              <td><button class="button">4</button></td>
+              <td><button class="button">5</button></td>
+              <td><button class="button">6</button></td>
+              <td><button class="button">*</button></td>
+            </tr>
+            <tr>
+              <td><button class="button">1</button></td>
+              <td><button class="button">2</button></td>
+              <td><button class="button">3</button></td>
+              <td><button class="button">-</button></td>
+            </tr>
+            <tr>
+              <td><button class="button">0</button></td>
+              <td><button class="button">.</button></td>
+              <td><button class="sign">±</button></td>
+              <td><button class="button">+</button></td>
+            </tr>
+          </table>
+        </div>
+
+        <div class="row">
+          <button class="clear">clear user_input</button>
+        </div>
+
+
+      </div>
+    </div>
+
+  </section>
+  </body>
+</html>
