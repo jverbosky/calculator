@@ -37,14 +37,15 @@ $(document).ready(function () {
     // flip the sign (negative/positive) of the current number
     $(".sign").click(function () {
         var currentExpression = $("#userInput").val();
-        var lastNum = "";
         var matchOp = currentExpression.match( /[+/*-]/g );  // order of operators in regex vital!
+        var firstIndexOp = currentExpression.indexOf( match[0] );  // future reference ^_^
         var lastOpIndex = currentExpression.lastIndexOf( matchOp[matchOp.length-1] );  // index of last operator
+        var lastNum = currentExpression.substr(lastOpIndex+1);  // grab value after last operator
 
+        // in progress/pseudo-code
         // if (currentExpression.match( "[-+*/]" ) ) {
         //   // Need to grab value after the last operator
-          lastNum = currentExpression.substr(lastOpIndex+1);  // grab value after last operator
-
+        //   lastNum = currentExpression.substr(lastOpIndex+1);
         // } else {
         //   lastNum = currentExpression;
         // }
