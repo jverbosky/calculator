@@ -40,27 +40,17 @@ $(document).ready(function () {
         var lastNum = "";
         var matchOp = currentExpression.match( /[+/*-]/g );  // order of operators in regex vital!
         var lastOpIndex = currentExpression.lastIndexOf( matchOp[matchOp.length-1] );  // index of last operator
-
-        // if (currentExpression.match( "[-+*/]" ) ) {
-        //   // Need to grab value after the last operator
-          lastNum = currentExpression.substr(lastOpIndex+1);  // grab value after last operator
-
-        // } else {
-        //   lastNum = currentExpression;
-        // }
+        if (currentExpression.match( "[-+*/]" ) ) {  // if there are any operators
+          lastNum = currentExpression.substr(lastOpIndex+1);  // save number after last operator
+        } else {
+          lastNum = currentExpression;  // otherwise save lonely number
+        }
 
         // test code for concatenating number (integer/float) after last operator
         $("#userInput").val(currentExpression + lastNum);
 
-        // test code to determine if I'm getting the last number after an operator
-        // $("#userInput").val(lastNum);
+        // Next add logic for concatenating "(-" and ")" onto lastNum if not already negative
 
-        // test code to verify variables and output are working properly
-        // var lastChar = currentExpression.substr(currentExpression.length - 1);
-        // $("#userInput").val(lastChar);  // outputs last character - this is a test
-
-        // this is production - probably need to add to an if statement
-        // ex: if 
         // $("#userInput").val($("#userInput").val() * -1);
     });
 
