@@ -37,27 +37,20 @@ $(document).ready(function () {
     // flip the sign (negative/positive) of the current number
     $(".sign").click(function () {
         var currentExpression = $("#userInput").val();
-
-        // var lastNum = "";
-        // var match = currentExpression.match( "[+-*/]" );
-
-        // working, but not with floats - matching "."
-        var matchOp = currentExpression.match( /[*+-/]/g );  // /g = global - return all matches
-        // var matchOp = currentExpression.match( /[*+-]/gi );  // backup - working with all but /
-        // var firstIndexOp = currentExpression.indexOf( match[0] );  // future reference ^_^
-        var lastIndexOp = currentExpression.lastIndexOf( matchOp[matchOp.length-1] );
+        var lastNum = "";
+        var matchOp = currentExpression.match( /[+/*-]/g );  // order of operators in regex vital!
+        var lastOpIndex = currentExpression.lastIndexOf( matchOp[matchOp.length-1] );  // index of last operator
 
         // if (currentExpression.match( "[-+*/]" ) ) {
         //   // Need to grab value after the last operator
-        lastNum = currentExpression.substr(lastIndexOp+1);
-
+          lastNum = currentExpression.substr(lastOpIndex+1);  // grab value after last operator
 
         // } else {
         //   lastNum = currentExpression;
         // }
 
         // test code for concatenating position of last operator
-        $("#userInput").val(currentExpression + matchOp);
+        $("#userInput").val(currentExpression + lastNum);
 
         // test code to determine if I'm getting the last number after an operator
         // $("#userInput").val(lastNum);
