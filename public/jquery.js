@@ -63,23 +63,14 @@ $(document).ready(function () {
     $(".sign").click(function () {
         var currentExpression = $("#userInput").val();
         var lastNum = getLastNum(currentExpression)
-        // var allButLastNum = getAllButLastNum(currentExpression)
+        var allButLastNum = getAllButLastNum(currentExpression)
 
-        // test code for output value of lastNum
-        // $("#userInput").val(lastNum);
-
-        // test code for concatenating number (integer/float) after last operator
-        // $("#userInput").val(currentExpression + lastNum);
-
-        // test code for all but the lastNum
-        // $("#userInput").val(allButLastNum);
-
-        // Next add logic for concatenating "(-" and ")" onto lastNum if not already negative
         if (currentExpression.match( "[-+*/]" ) ) {
          $("#userInput").val(allButLastNum + "(" + (lastNum * -1) + ")" );
         } else if (currentExpression > 0 ) {
-          $("#userInput").val(currentExpression * -1);
+          $("#userInput").val("(" + (currentExpression * -1) + ")" );
         }
+
     });
 
     // clear contents of textarea field
