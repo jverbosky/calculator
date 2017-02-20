@@ -38,20 +38,27 @@ $(document).ready(function () {
     $(".sign").click(function () {
         var currentExpression = $("#userInput").val();
         var lastNum = "";
+        var allButLastNum = "";
         var matchOp = currentExpression.match( /[+/*-]/g );  // order of operators in regex vital!
         var lastOpIndex = currentExpression.lastIndexOf( matchOp[matchOp.length-1] );  // index of last operator
         if (currentExpression.match( "[-+*/]" ) ) {  // if there are any operators
-          lastNum = currentExpression.substr(lastOpIndex+1);  // save number after last operator
+          lastNum = currentExpression.substr( lastOpIndex+1 );  // save number after last operator
         } else {
           lastNum = currentExpression;  // otherwise save lonely number
         }
+        if (currentExpression.match( "[-+*/]" ) ) {  // if there are any operators
+          allButLastNum = currentExpression.substr(0, lastOpIndex+1);  // save everything before last number
+        }
 
         // test code for concatenating number (integer/float) after last operator
-        $("#userInput").val(currentExpression + lastNum);
+        // $("#userInput").val(currentExpression + lastNum);
+
+        // test code for all but the lastNum
+        $("#userInput").val(allButLastNum);
 
         // Next add logic for concatenating "(-" and ")" onto lastNum if not already negative
 
-        // $("#userInput").val($("#userInput").val() * -1);
+        // $("#userInput").val("(" + lastNum + ")");
     });
 
     // clear contents of textarea field
