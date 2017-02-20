@@ -1,21 +1,16 @@
-# Method to parse multiple numbers (integer and float) and operators from string
-def parse_string(string)
-  array = string.gsub(" ", "").split(/(\d+\.?\d*)/).reject(&:empty?)
-end
-
-# Method returns array of numbers from parse_string() output - works with negatives now (-5.5)
+# Method returns array of numbers from string
 def get_numbers(string)
-  groups = string.scan(/((\(-)?\d+(\.\d+)?\)?)/)
+  groups = string.scan(/((\(-)?\d+(\.\d+)?\)?)/)  # regex capture groups to handle parentheses-enclosed negatives (-5.5)
   numbers = []
-  groups.each { |group| numbers.push(group[0]) }
-  numbers.map! { |n| n[0] == "(" ? n = n[1..-2] : n }
+  groups.each { |group| numbers.push(group[0]) }  # parse inner arrays for first element in each capture group
+  numbers.map! { |n| n[0] == "(" ? n = n[1..-2] : n }  # strip parentheses from negative numbers
 end
 
-# Method to obtain all operators from parse_string() output
+# Method to obtain all operators from string
 def get_operators(string)
-  array = parse_string(string)
+  groups = string.scan(/(((?<!\()-)|((?!\))[+*\/]))/)  # regex capture groups to ignore negative number sign
   operators = []
-  array.each { |char| operators.push(char) if char !~ /(\d+(\.\d+)?)/ }
+  groups.each { |group| operators.push(group[0]) }  # parse inner arrays for first element in each capture group
   return operators
 end
 
@@ -29,7 +24,7 @@ def calculate(num_1, operator, num_2)
   result = 0
   case operator
     when "+" then result = num_1 + num_2
-    when "-" then result = num_1 - num_2  # TO-DO: subtracting floats a bit unexpected, add logic later
+    when "-" then result = num_1 - num_2  # TO-DO: subtracting floats a bit unexpected, research more later
     when "*" then result = num_1 * num_2
     when "/" then num_2 == 0 ? result = "Error" : result = num_1.to_f / num_2
   end
@@ -42,29 +37,33 @@ def get_result(string)
   number_index = 0
   operators = get_operators(string)
   operator_index = 0
-  num_1 = evaluate_number(numbers[number_index])
+  num_1 = evaluate_number(numbers[number_index])  # start with the first number in the numbers array
   result = 0
-  while number_index < operators.length
-    operator = operators[operator_index]
-    num_2 = evaluate_number(numbers[number_index + 1])
-    result = calculate(num_1, operator, num_2)
-    number_index += 1
-    operator_index += 1
-    num_1 = result
+  while number_index < operators.length  # calculate pairs of numbers (left to right) until done
+    operator = operators[operator_index]  # start with the first operator in the operators array
+    num_2 = evaluate_number(numbers[number_index + 1])  # start with the second number in the numbers array
+    result = calculate(num_1, operator, num_2)  # perform the calculation
+    num_1 = result  # store the result in num_1 and use it for the next iteration (or return when loop ends)
+    number_index += 1  # increase the counter to grab the next number for the next iteration
+    operator_index += 1  # increase the counter to grab the next operator for the next iteration
   end
-  result = "Error" if string.include? ".."
+  result = "Error" if string.include? ".."  # if there are multiple concurrent dots the result is garbage
   return result
 end
 
 # Sandbox testing
-# puts get_result("2*3+1")
-# puts get_result("123+", "456")
-# puts get_result("123-", "456")
-# puts get_result("3*", "456")
-# puts get_result("123/", "4")
-# puts get_result("123/", "0")
-# puts get_result("123.456+", "456.789")
-# puts get_result("123.456-", "456.789")
-# puts get_result("1.23*", "456.78")
-# puts get_result("1.23/", "4.56")
-# puts get_result("1.23/", "0")
+puts get_result("2*3+1")  # 7
+puts get_result("123+456")  # 579
+puts get_result("123-456")  # -333
+puts get_result("3*456")  # 1368
+puts get_result("123*0")  # 0
+puts get_result("123/4")  # 30.75
+puts get_result("123.456+456.789")  # 580.245
+puts get_result("123.456-456.789")  # -333.33299999999997
+puts get_result("1.23*456.78")  # 561.8394
+puts get_result("1.23/4.56")  # 0.26973684210526316
+puts get_result("123/0")  # Error
+puts get_result("1.23/0")  # Error
+puts get_result("1..23*2")  # Error
+puts get_result("12+13.5-7*(-4)/78.6-(-12.35)+86-5.3-0")  # 92.10852417302799
+puts get_result("(-12)+(-13.5)-(-7)*(-4)/(-78.6)-(-12.35)+(-86.5)")  # -75.09147582697202
