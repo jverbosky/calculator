@@ -3,12 +3,12 @@ def parse_string(string)
   array = string.gsub(" ", "").split(/(\d+\.?\d*)/).reject(&:empty?)
 end
 
-# Method to obtain all numbers from parse_string() output
+# Method returns array of numbers from parse_string() output - works with negatives now (-5.5)
 def get_numbers(string)
-  array = parse_string(string)
+  groups = string.scan(/((\(-)?\d+(\.\d+)?\)?)/)
   numbers = []
-  array.each { |char| numbers.push(char) if char =~ /(\d+(\.\d+)?)/ }
-  return numbers
+  groups.each { |group| numbers.push(group[0]) }
+  numbers.map! { |n| n[0] == "(" ? n = n[1..-2] : n }
 end
 
 # Method to obtain all operators from parse_string() output
@@ -52,6 +52,7 @@ def get_result(string)
     operator_index += 1
     num_1 = result
   end
+  result = "Error" if string.include? ".."
   return result
 end
 
