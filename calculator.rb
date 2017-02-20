@@ -16,6 +16,7 @@ end
 
 # Method to convert a numeric string into an integer or float
 def evaluate_number(numeric_string)
+  # Add logic here for: if numeric_string includes multiple "." (i.e. 3.5254.32) return "Error"
   (numeric_string.include? ".") ? numeric_string.to_f : numeric_string.to_i
 end
 
@@ -47,23 +48,22 @@ def get_result(string)
     number_index += 1  # increase the counter to grab the next number for the next iteration
     operator_index += 1  # increase the counter to grab the next operator for the next iteration
   end
-  result = "Error" if string.include? ".."  # if there are multiple concurrent dots the result is garbage
   return result
 end
 
 # Sandbox testing
-puts get_result("2*3+1")  # 7
-puts get_result("123+456")  # 579
-puts get_result("123-456")  # -333
-puts get_result("3*456")  # 1368
-puts get_result("123*0")  # 0
-puts get_result("123/4")  # 30.75
-puts get_result("123.456+456.789")  # 580.245
-puts get_result("123.456-456.789")  # -333.33299999999997
-puts get_result("1.23*456.78")  # 561.8394
-puts get_result("1.23/4.56")  # 0.26973684210526316
-puts get_result("123/0")  # Error
-puts get_result("1.23/0")  # Error
-puts get_result("1..23*2")  # Error
-puts get_result("12+13.5-7*(-4)/78.6-(-12.35)+86-5.3-0")  # 92.10852417302799
-puts get_result("(-12)+(-13.5)-(-7)*(-4)/(-78.6)-(-12.35)+(-86.5)")  # -75.09147582697202
+# puts get_result("2*3+1")  # 7
+# puts get_result("123+456")  # 579
+# puts get_result("123-456")  # -333
+# puts get_result("3*456")  # 1368
+# puts get_result("123*0")  # 0
+# puts get_result("123/4")  # 30.75
+# puts get_result("123.456+456.789")  # 580.245
+# puts get_result("123.456-456.789")  # -333.33299999999997
+# puts get_result("1.23*456.78")  # 561.8394
+# puts get_result("1.23/4.56")  # 0.26973684210526316
+# puts get_result("123/0")  # Error
+# puts get_result("1.23/0")  # Error
+# puts get_result("1..23*2")  # Error
+# puts get_result("12+13.5-7*(-4)/78.6-(-12.35)+86-5.3-0")  # 92.10852417302799
+# puts get_result("(-12)+(-13.5)-(-7)*(-4)/(-78.6)-(-12.35)+(-86.5)")  # -75.09147582697202
