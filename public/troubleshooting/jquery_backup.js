@@ -35,29 +35,28 @@ $(document).ready(function () {
     });
 
     function getLastNum(currentExpression) {
-      var matchOp = 0
-      var lastOpIndex = 0
-      var lastNum = currentExpression;
-      if (currentExpression.match( /[+/*-]/g ) != null) {
-        matchOp = currentExpression.match( /[+/*-]/g );  // order of operators in regex vital!
-        lastOpIndex = currentExpression.lastIndexOf( matchOp[matchOp.length-1] );  // assign index of last operator
-        lastNum = currentExpression.substr( lastOpIndex+1 );  // assign number after last operator
+      var lastNum = "";
+      var matchOp = currentExpression.match( /[+/*-]/g );  // order of operators in regex vital!
+      var lastOpIndex = currentExpression.lastIndexOf( matchOp[matchOp.length-1] );  // index of last operator
+      if (currentExpression.match( "[-+*/]" ) ) {  // if there are any operators
+        lastNum = currentExpression.substr( lastOpIndex+1 );  // save number after last operator
+      } else {
+        lastNum = currentExpression;  // otherwise save lonely number
       }
       return lastNum
     }
 
     function getAllButLastNum(currentExpression) {
-      var matchOp = 0
-      var lastOpIndex = 0
       var lastNum = getLastNum(currentExpression)
       var allButLastNum = "";
-      if (currentExpression.match( /[+/*-]/g ) != null) {
-        matchOp = currentExpression.match( /[+/*-]/g );  // order of operators in regex vital!
-        lastOpIndex = currentExpression.lastIndexOf( matchOp[matchOp.length-1] );  // assign index of last operator
+      var matchOp = currentExpression.match( /[+/*-]/g );  // order of operators in regex vital!
+      var lastOpIndex = currentExpression.lastIndexOf( matchOp[matchOp.length-1] );  // index of last operator
+      if (currentExpression.match( "[-+*/]" ) ) {  // if there are any operators
         allButLastNum = currentExpression.substr( 0, lastOpIndex+1 );  // save everything before last number
       }
       return allButLastNum
     }
+
 
     // flip the sign (negative/positive) of the current number
     $(".sign").click(function () {
@@ -75,11 +74,12 @@ $(document).ready(function () {
         // $("#userInput").val(allButLastNum);
 
         // Next add logic for concatenating "(-" and ")" onto lastNum if not already negative
-        if (currentExpression.match( "[-+*/]" ) ) {
-         $("#userInput").val(allButLastNum + "(" + (lastNum * -1) + ")" );
-        } else if (currentExpression > 0 ) {
-          $("#userInput").val(currentExpression * -1);
-        }
+        // if (currentExpression.match( "[-+*/]" ) ) {
+        //  $("#userInput").val(allButLastNum + "(" + (lastNum * -1) + ")" );
+        // } else if (currentExpression > 0 ) {
+           $("#userInput").val(currentExpression + currentExpression);
+          // $("#userInput").val(currentExpression * -1);
+        // }
     });
 
     // clear contents of textarea field
