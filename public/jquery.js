@@ -35,28 +35,28 @@ $(document).ready(function () {
     });
 
     function getLastNum(currentExpression) {
-      var matchOp = 0
-      var lastOpIndex = 0
-      var lastNum = currentExpression;
-      if (currentExpression.match( /[+/*-]/g ) != null) {
-        matchOp = currentExpression.match( /[+/*-]/g );  // order of operators in regex vital!
-        lastOpIndex = currentExpression.lastIndexOf( matchOp[matchOp.length-1] );  // assign index of last operator
-        lastNum = currentExpression.substr( lastOpIndex+1 );  // assign number after last operator
-      }
-      return lastNum
+        var matchOp = 0
+        var lastOpIndex = 0
+        var lastNum = currentExpression;
+        if (currentExpression.match( /[+/*-]/g ) != null) {
+          matchOp = currentExpression.match( /[+/*-]/g );  // order of operators in regex vital!
+          lastOpIndex = currentExpression.lastIndexOf( matchOp[matchOp.length-1] );  // assign index of last operator
+          lastNum = currentExpression.substr( lastOpIndex+1 );  // assign number after last operator
+        }
+        return lastNum
     }
 
     function getAllButLastNum(currentExpression) {
-      var matchOp = 0
-      var lastOpIndex = 0
-      var lastNum = getLastNum(currentExpression)
-      var allButLastNum = "";
-      if (currentExpression.match( /[+/*-]/g ) != null) {
-        matchOp = currentExpression.match( /[+/*-]/g );  // order of operators in regex vital!
-        lastOpIndex = currentExpression.lastIndexOf( matchOp[matchOp.length-1] );  // assign index of last operator
-        allButLastNum = currentExpression.substr( 0, lastOpIndex+1 );  // save everything before last number
-      }
-      return allButLastNum
+        var matchOp = 0
+        var lastOpIndex = 0
+        var lastNum = getLastNum(currentExpression)
+        var allButLastNum = "";
+        if (currentExpression.match( /[+/*-]/g ) != null) {
+          matchOp = currentExpression.match( /[+/*-]/g );  // order of operators in regex vital!
+          lastOpIndex = currentExpression.lastIndexOf( matchOp[matchOp.length-1] );  // assign index of last operator
+          allButLastNum = currentExpression.substr( 0, lastOpIndex+1 );  // save everything before last number
+        }
+        return allButLastNum
     }
 
     // flip the sign (negative/positive) of the current number
@@ -64,7 +64,7 @@ $(document).ready(function () {
         var currentExpression = $("#userInput").val();
         var lastNum = getLastNum(currentExpression)
         var allButLastNum = getAllButLastNum(currentExpression)
-
+        // make current number negative and encapsulate with parentheses
         if (currentExpression.match( "[-+*/]" ) ) {
          $("#userInput").val(allButLastNum + "(" + (lastNum * -1) + ")" );
         } else if (currentExpression > 0 ) {

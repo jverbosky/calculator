@@ -23,7 +23,12 @@ function getAllButLastNum(currentExpression) {
   return allButLastNum
 }
 
-console.log(getLastNum("2+4.1/3.1*8"))  // 8
-console.log(getLastNum("3"))  // 3
-console.log(getAllButLastNum("2+4.1/3.1*8"))  // 2+4.1/3.1*
-console.log(getAllButLastNum("3"))  // ""
+function manipulateInput(currentExpression) {
+  var lastNum = getLastNum(currentExpression)
+  var allButLastNum = getAllButLastNum(currentExpression)
+  var manipulated = currentExpression + currentExpression
+  return manipulated
+}
+
+console.log(manipulateInput("3"))  // 33
+console.log(manipulateInput("3+2"))  // 3+23+2

@@ -23,7 +23,24 @@ function getAllButLastNum(currentExpression) {
   return allButLastNum
 }
 
+// function to make current number negative and add parentheses
+function makeNegative(currentExpression) {
+  var manipulated = ""
+  var lastNum = getLastNum(currentExpression)
+  var allButLastNum = getAllButLastNum(currentExpression)
+  // make current number negative and encapsulate with parentheses
+  if (currentExpression.match( "[-+*/]" ) ) {
+    manipulated = (allButLastNum + "(" + (lastNum * -1) + ")" );
+  } else if (currentExpression > 0 ) {
+    manipulated = ("(" + (currentExpression * -1) + ")" );
+  }
+  return manipulated
+}
+
+// Sandbox testing
 console.log(getLastNum("2+4.1/3.1*8"))  // 8
 console.log(getLastNum("3"))  // 3
 console.log(getAllButLastNum("2+4.1/3.1*8"))  // 2+4.1/3.1*
 console.log(getAllButLastNum("3"))  // ""
+console.log(makeNegative("3"))  // (-3)
+console.log(makeNegative("2+4.1/3.1*8"))  // 2+4.1/3.1*(-8)
