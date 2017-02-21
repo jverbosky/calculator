@@ -1,4 +1,5 @@
-// updated to address minus operator preceding current negative number (lines 18 - 22)
+// updated getLastNum() to address minus operator preceding current negative number (lines 19 - 23)
+// updated flipSign() to address final character being an operator or a dot (lines 49 - 51)
 
 function reverseString(string) {
     return string.split("").reverse().join("");
@@ -45,7 +46,10 @@ function flipSign(currentExpression) {
   result = ""
   var lastNum = getLastNum(currentExpression);  // get the value of lastNum
   var allButLastNum = getAllButLastNum(currentExpression);  // get the value of allButLastNum
-  if ( currentExpression.slice(0, 1) == "-") {  // check if making a negative result positive
+  var lastChar = currentExpression.substr(currentExpression.length - 1);  // last character
+  if (lastChar.match("[-+*/]") || lastChar == "." ) {  // if the last character is an operator or a dot
+    manipulated = ( currentExpression );  // then don't flip the sign
+  } else if ( currentExpression.slice(0, 1) == "-") {  // check if making a negative result positive
     manipulated = ( currentExpression.slice(1) );  // if so, drop the minus sign at the front
   } else if (currentExpression.slice(-1) == ")" ) {  // if final character = parenthesis last number is negative
     manipulated = allButLastNum + lastNum.slice(2, -1);  // remove minus sign and parentheses
@@ -76,3 +80,5 @@ console.log(flipSign("(-3)"))  // 3
 console.log(flipSign("2+4.1/3.1*(-88.8)"))  // 2+4.1/3.1*88.8
 console.log(flipSign("2+4.1/3.1-(-88.8)"))  // 2+4.1/3.1*88.8
 console.log(flipSign("-123.456"))  //123.456
+console.log(flipSign("3+"))  // 3+
+console.log(flipSign("3+0."))  // 3+0.

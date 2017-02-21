@@ -51,7 +51,7 @@ $(document).ready(function () {
     var lastNum = getLastNum(currentExpression);  // get the value of lastNum
     var allButLastNum = getAllButLastNum(currentExpression);  // get the value of allButLastNum
     var lastChar = currentExpression.substr(currentExpression.length - 1);  // last character
-    if (lastChar.match("[-+*/]") ) {  // if the last character is an operator
+    if (lastChar.match("[-+*/]") || lastChar == "." ) {  // if the last character is an operator or a dot
       $("#userInput").val( currentExpression );  // then don't flip the sign
     } else if ( currentExpression.slice(0, 1) == "-" ) {  // if making a negative result positive
       $("#userInput").val( currentExpression.slice(1) );  // drop the preceding minus sign
