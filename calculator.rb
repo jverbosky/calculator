@@ -24,10 +24,12 @@ def calculate(num_1, operator, num_2)
   result = 0
   case operator
     when "+" then result = num_1 + num_2
-    when "-" then result = num_1 - num_2  # TO-DO: subtracting floats a bit unexpected, research more later
+    when "-" then result = num_1 - num_2
     when "*" then result = num_1 * num_2
     when "/" then num_2 == 0 ? result = "Error" : result = num_1.to_f / num_2
   end
+  # logic to round "unexpected" decimal output from floats (to 12 places)
+  result = (result*1_000_000_000_000.0).round/1_000_000_000_000.0 if result != "Error"
   return result
 end
 
@@ -43,25 +45,10 @@ def get_result(string)
     operator = operators[operator_index]  # start with the first operator in the operators array
     num_2 = evaluate_number(numbers[number_index + 1])  # start with the second number in the numbers array
     result = calculate(num_1, operator, num_2)  # perform the calculation
+    break if result == "Error"  # if expression divides by zero anywhere, return "Error"
     num_1 = result  # store the result in num_1 and use it for the next iteration (or return when loop ends)
     number_index += 1  # increase the counter to grab the next number for the next iteration
     operator_index += 1  # increase the counter to grab the next operator for the next iteration
   end
   return result
 end
-
-# Sandbox testing
-# puts get_result("2*3+1")  # 7
-# puts get_result("123+456")  # 579
-# puts get_result("123-456")  # -333
-# puts get_result("3*456")  # 1368
-# puts get_result("123*0")  # 0
-# puts get_result("123/4")  # 30.75
-# puts get_result("123.456+456.789")  # 580.245
-# puts get_result("123.456-456.789")  # -333.33299999999997
-# puts get_result("1.23*456.78")  # 561.8394
-# puts get_result("1.23/4.56")  # 0.26973684210526316
-# puts get_result("123/0")  # Error
-# puts get_result("1.23/0")  # Error
-# puts get_result("12+13.5-7*(-4)/78.6-(-12.35)+86-5.3-0")  # 92.10852417302799
-# puts get_result("(-12)+(-13.5)-(-7)*(-4)/(-78.6)-(-12.35)+(-86.5)")  # -75.09147582697202
