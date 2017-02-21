@@ -30,7 +30,7 @@ $(document).ready(function () {
       // } else if (lastChar.match( "[-+*/]" ) ) {
       //   $("#userInput").val(currentExpression + zeroPad + dot);
       // } else {
-        $("#userInput").val(currentExpression + dot);
+        $("#userInput").val( currentExpression + dot );
       // }
     });
 
@@ -43,54 +43,31 @@ $(document).ready(function () {
       var matchOp = []
       var lastOpIndex = 0
       var lastNum = currentExpression;
-      if (currentExpression.slice(-1) == ")" ) {  // if final character = parenthesis last number is negative
-        if (currentExpression.match( /[+/*-]/g ).length > 1 ) {  // multiple operators = expression
-          reversed = reverseString(currentExpression)  // reverse string to use negative lookahead
-          matchOp = reversed.match( /((?!-\()-)|((?!\))[+*\/])/g );  // put operators in array but ignore negative
-          matchOp = matchOp.reverse()  // reverse list of operators to correspond to original string
-          lastOpIndex = currentExpression.lastIndexOf( matchOp[matchOp.length-1] );  // assign index of last operator
-          lastNum = currentExpression.substr( lastOpIndex+1 );  // assign number after last operator
+      if ( currentExpression.slice(-1) == ")" ) {  // if final character = parenthesis last number is negative
+        if ( currentExpression.match(/[+/*-]/g).length > 1 ) {  // multiple operators = expression
+          reversed = reverseString(currentExpression);  // reverse string to use negative lookahead
+          matchOp = reversed.match(/((?!-\()-)|((?!\))[+*\/])/g);  // put operators in array but ignore negative
+          matchOp = matchOp.reverse();  // reverse list of operators to correspond to original string
+          lastOpIndex = currentExpression.lastIndexOf(matchOp[matchOp.length-1]);  // assign index of last operator
+          lastNum = currentExpression.substr(lastOpIndex+1);  // assign number after last operator
         }
       }
       else {  // otherwise number is positive, so check for operators
-        if (currentExpression.match( /[+/*-]/g ) != null) {  // any operators = expression
-          matchOp = currentExpression.match( /[+/*-]/g );  // put all operators in an array, regex order vital
-          lastOpIndex = currentExpression.lastIndexOf( matchOp[matchOp.length-1] );  // assign index of last operator
-          lastNum = currentExpression.substr( lastOpIndex+1 );  // assign number after last operator
+        if ( currentExpression.match(/[+/*-]/g ) != null) {  // any operators = expression
+          matchOp = currentExpression.match(/[+/*-]/g);  // put all operators in an array, regex order vital
+          lastOpIndex = currentExpression.lastIndexOf(matchOp[matchOp.length-1]);  // assign index of last operator
+          lastNum = currentExpression.substr(lastOpIndex+1);  // assign number after last operator
         }
       }
-      return lastNum
+      return lastNum;
     }
 
     // function to return all but the current number if an expression (or nothing if not)
     function getAllButLastNum(currentExpression) {
-      var lastNum = getLastNum(currentExpression)
-      var allButLastNum = ""
-      allButLastNum = currentExpression.slice(0, -lastNum.length)
-      return allButLastNum
-    }
-
-    // function to make current posivite number negative and add parentheses
-    function makeNegative(currentExpression) {
-      var manipulated = ""
-      var lastNum = getLastNum(currentExpression)
-      var allButLastNum = getAllButLastNum(currentExpression)
-      // make current number negative and encapsulate with parentheses
-      if (currentExpression.match( "[-+*/]" ) ) {
-        manipulated = (allButLastNum + "(" + (lastNum * -1) + ")" );
-      } else if (currentExpression > 0 ) {
-        manipulated = ("(" + (currentExpression * -1) + ")" );
-      }
-      return manipulated
-    }
-
-    // function to make current negative number positive and remove parentheses
-    function makePositive(currentExpression) {
-      var manipulated = ""
-      var lastNum = getLastNum(currentExpression)
-      var allButLastNum = getAllButLastNum(currentExpression)
-      manipulated = allButLastNum + lastNum.slice(2, -1)
-      return manipulated
+      var lastNum = getLastNum(currentExpression);
+      var allButLastNum = "";
+      allButLastNum = currentExpression.slice(0, -lastNum.length);  // slice off the lastNum
+      return allButLastNum;
     }
 
     // flip the sign (negative/positive) of the current number
@@ -98,14 +75,14 @@ $(document).ready(function () {
       var currentExpression = $("#userInput").val();  // get the current contents of textarea field
       var lastNum = getLastNum(currentExpression);  // get the value of lastNum
       var allButLastNum = getAllButLastNum(currentExpression);  // get the value of allButLastNum
-      if ( currentExpression.slice(0, 1) == "-") {  // check if making a negative result positive
+      if ( currentExpression.slice(0, 1) == "-" ) {  // check if making a negative result positive
         $("#userInput").val( currentExpression.slice(1) );  // if so, drop the minus sign at the front
-      } else if (currentExpression.slice(-1) == ")" ) {  // if final character = parenthesis last number is negative
+      } else if ( currentExpression.slice(-1) == ")" ) {  // if final character = parenthesis last number is negative
         $("#userInput").val( allButLastNum + lastNum.slice(2, -1) );  // remove minus sign and parentheses
       } else {  // make current number negative and encapsulate with parentheses
-        if (currentExpression.match( "[-+*/]" ) ) {  // any operators = expression
+        if ( currentExpression.match("[-+*/]") ) {  // any operators = expression
           $("#userInput").val( allButLastNum + "(" + (lastNum * -1) + ")" );  // concatenate and make lastNum negative
-        } else if (currentExpression > 0 ) {  // check to make sure there's a number
+        } else if ( currentExpression > 0 ) {  // check to make sure there's a number
           $("#userInput").val( "(" + (currentExpression * -1) + ")" );  // encapsulate and make lastNum negative
         }
       }
@@ -113,7 +90,7 @@ $(document).ready(function () {
 
     // clear contents of textarea field
     $(".clear").click(function () {
-        $("#userInput").val('');
+        $("#userInput").val("");
     });
 
 });
