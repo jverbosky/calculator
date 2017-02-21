@@ -48,7 +48,7 @@ $(document).ready(function () {
     var lastNum = getLastNum(currentExpression);  // get the value of lastNum
     var allButLastNum = getAllButLastNum(currentExpression);  // get the value of allButLastNum
     var lastChar = currentExpression.substr(currentExpression.length - 1);  // last character
-    if (lastChar.match("[-+*/]") || lastChar == "." ) {  // if the last character is an operator or a dot
+    if ( lastChar.match("[-+*/]") || lastChar == "." ) {  // if the last character is an operator or a dot
       $("#userInput").val( currentExpression );  // then don't flip the sign
     } else if ( currentExpression.slice(0, 1) == "-" ) {  // if making a negative result positive
       $("#userInput").val( currentExpression.slice(1) );  // drop the preceding minus sign
@@ -75,22 +75,10 @@ $(document).ready(function () {
     // if last character is a dot or right parenthesis, or if the number already has a dot
     } else if (lastChar.match("[.)]") || lastNum.match("[.]") ) {
       $("#userInput").val( currentExpression );  // then disallow another dot
-    } else if (lastChar.match("[-+*/]") ) {  // if the last character is an operator
+    } else if ( lastChar.match("[-+*/]") ) {  // if the last character is an operator
       $("#userInput").val( currentExpression + zeroPad + dot );  // then put a zero before the dot
     } else {  // otherwise if the number is a positive integer
       $("#userInput").val( currentExpression + dot );  // add a dot to the end of the current number
-    }
-  });
-
-  // Function to put numeric button values in textarea field (#userInput)
-  $(".input").click(function () {
-    var buttonValue = $(this).html();
-    var currentExpression = $("#userInput").val();
-    var lastChar = currentExpression.substr(currentExpression.length - 1);  // last character
-    if (lastChar.match("[)]") ) {  // if the last character = right parenthesis
-      $("#userInput").val( currentExpression );  // then disallow another number
-    } else {
-      $("#userInput").val($("#userInput").val() + buttonValue);  // otherwise, concatenate the number
     }
   });
 
@@ -100,9 +88,34 @@ $(document).ready(function () {
   // Currently with lines 92 - 93, can't add another character after a negative
   // Fix by breaking out operators from numbers
 
+  // Function to put numeric button values in textarea field (#userInput)
+  $(".operator").click(function () {
+    var buttonValue = $(this).html();
+    var currentExpression = $("#userInput").val();
+    var lastChar = currentExpression.substr(currentExpression.length - 1);  // last character
+    // if nothing has been entered or last character is an operator
+    if ( currentExpression == "" || lastChar.match("[-+*/]") ) {
+      $("#userInput").val( currentExpression );  // then disallow an operator
+    } else {
+      $("#userInput").val( $("#userInput").val() + buttonValue );  // otherwise, concatenate the operator
+    }
+  });
+
+  // Function to put numeric button values in textarea field (#userInput)
+  $(".number").click(function () {
+    var buttonValue = $(this).html();
+    var currentExpression = $("#userInput").val();
+    var lastChar = currentExpression.substr(currentExpression.length - 1);  // last character
+    if ( lastChar.match("[)]") ) {  // if the last character = right parenthesis
+      $("#userInput").val( currentExpression );  // then disallow another number
+    } else {
+      $("#userInput").val( $("#userInput").val() + buttonValue );  // otherwise, concatenate the number
+    }
+  });
+
   // Function to clear textarea field
   $(".clear").click(function () {
-      $("#userInput").val("");
+      $("#userInput").val( "" );
   });
 
 });

@@ -2,12 +2,11 @@ Bug List
 ---------------------------
 getLastNum()
 
-If minus precedes a negative number, the current negative number is not returned correctly.
+1) If minus precedes a negative number, the current negative number is not returned correctly.
 
 Verified issue does not occur for other operators (+*/).
 
 To reproduce:
-
 3-1	> hit +/-
 3-(-1)	> getLastNum runs
 1)	> bug - should be (-1)
@@ -17,13 +16,12 @@ Added logic to check for minus before negative number and change .substr() targe
 ---------------------------
 flipSign()
 
-If the padded zero (dot) is made negative and then made positive, 
+1) If the padded zero (dot) is made negative and then made positive, 
 
 Verified issue occurs regardless of preceding operator.
 Verified issue does not occur if number is a zero-leading float (i.e. 0.1).
 
 To reproduce:
-
 3-	> hit .
 3-0.	> hit +/- * this should not be legal *
 3-(0)	> hit +/-
@@ -32,7 +30,24 @@ To reproduce:
 * Fixed 2/21
 Added logic to check last character in expression to see if it is a dot.
 ---------------------------
+input()
 
+1) Able to start an expression with an operator
+2) Able to input concurrent operators.
+3) Unable to input operator after a negative (due to blocking numbers directly after negative).
+
+To reproduce issues 1 & 2: 
+Hit any operator multiple times before or after entering a number.
+
+To reproduce issue 3:
+3	> hit +/-
+(-3)	> hit an operator (+-*/)
+(-3)	> bug
+
+* Fixed 2/21
+1) Broke number and operator handling into separate functions.
+2) Added logic to operator() to check for empty expression and if last character is an operator.
+---------------------------
 
 
 
