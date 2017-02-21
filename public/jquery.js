@@ -34,16 +34,32 @@ $(document).ready(function () {
       // }
     });
 
+    function reverseString(string) {
+        return string.split("").reverse().join("");
+    }
+
     function getLastNum(currentExpression) {
-        var matchOp = 0
-        var lastOpIndex = 0
-        var lastNum = currentExpression;
-        if (currentExpression.match( /[+/*-]/g ) != null) {
-          matchOp = currentExpression.match( /[+/*-]/g );  // order of operators in regex vital!
+      var reversed = ""
+      var matchOp = []
+      var lastOpIndex = 0
+      var lastNum = currentExpression;
+      if (currentExpression.slice(-1) == ")" ) {  // if final character = parenthesis last number is negative
+        if (currentExpression.match( /[+/*-]/g ).length > 1 ) {  // multiple operators = expression
+          reversed = reverseString(currentExpression)  // reverse string to use negative lookahead
+          matchOp = reversed.match( /((?!-\()-)|((?!\))[+*\/])/g );  // put operators in array but ignore negative
+          matchOp = matchOp.reverse()  // reverse list of operators to correspond to original string
           lastOpIndex = currentExpression.lastIndexOf( matchOp[matchOp.length-1] );  // assign index of last operator
           lastNum = currentExpression.substr( lastOpIndex+1 );  // assign number after last operator
         }
-        return lastNum
+      }
+      else {  // otherwise number is positive, so check for operators
+        if (currentExpression.match( /[+/*-]/g ) != null) {  // any operators = expression
+          matchOp = currentExpression.match( /[+/*-]/g );  // put all operators in an array, regex order vital
+          lastOpIndex = currentExpression.lastIndexOf( matchOp[matchOp.length-1] );  // assign index of last operator
+          lastNum = currentExpression.substr( lastOpIndex+1 );  // assign number after last operator
+        }
+      }
+      return lastNum
     }
 
     function getAllButLastNum(currentExpression) {
@@ -51,8 +67,8 @@ $(document).ready(function () {
         var lastOpIndex = 0
         var lastNum = getLastNum(currentExpression)
         var allButLastNum = "";
-        if (currentExpression.match( /[+/*-]/g ) != null) {
-          matchOp = currentExpression.match( /[+/*-]/g );  // order of operators in regex vital!
+        if (currentExpression.match( /[+/*-]/g ) != null) {  // any operators = expression
+          matchOp = currentExpression.match( /[+/*-]/g );  // put all operators in an array, regex order vital
           lastOpIndex = currentExpression.lastIndexOf( matchOp[matchOp.length-1] );  // assign index of last operator
           allButLastNum = currentExpression.substr( 0, lastOpIndex+1 );  // save everything before last number
         }
