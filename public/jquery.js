@@ -2,15 +2,16 @@ $(document).ready(function () {
 
   // Function to reverse string - used for negative lookahead in getLastNum if current number is negative
   function reverseString(string) {
+      // split string into an array, reverse contents of array, join array back into string
       return string.split("").reverse().join("");
   }
 
   // Function to return current number (last number in expression)
   function getLastNum(currentExpression) {
-    var reversed = ""
-    var matchOp = []
-    var lastOpIndex = 0
-    var lastNum = currentExpression;
+    var reversed = ""  // string to hold reversed expression (no support for negative lookbehind in JS)
+    var matchOp = []  // array to hold the operators extracted from the expression
+    var lastOpIndex = 0  // variable to hold index (position) of last operator in expression
+    var lastNum = currentExpression;  // assign the current expression to lastNum
     if ( currentExpression.slice(-1) == ")" ) {  // if final character = parenthesis last number is negative
       if ( currentExpression.match(/[+/*-]/g).length > 1 ) {  // multiple operators = expression
         reversed = reverseString(currentExpression);  // reverse string to use negative lookahead
@@ -36,22 +37,22 @@ $(document).ready(function () {
 
   // Function to return all but current number if an expression (or nothing if not)
   function getAllButLastNum(currentExpression) {
-    var lastNum = getLastNum(currentExpression);
+    var lastNum = getLastNum(currentExpression);  // get last number in expression
     var allButLastNum = "";
-    allButLastNum = currentExpression.slice(0, -lastNum.length);  // slice off the lastNum
+    allButLastNum = currentExpression.slice(0, -lastNum.length);  // slice off lastNum
     return allButLastNum;
   }
 
   // Function to flip sign (negative/positive) of current number
   $(".sign").click(function () {
-    var currentExpression = $("#userInput").val();  // get the current contents of textarea field
-    var lastNum = getLastNum(currentExpression);  // get the value of lastNum
-    var allButLastNum = getAllButLastNum(currentExpression);  // get the value of allButLastNum
+    var currentExpression = $("#userInput").val();  // get current contents of textarea field
+    var lastNum = getLastNum(currentExpression);  // get value of lastNum
+    var allButLastNum = getAllButLastNum(currentExpression);  // get value of allButLastNum
     var lastChar = currentExpression.substr(currentExpression.length - 1);  // last character
-    if ( lastChar.match("[-+*/]") || lastChar == "." ) {  // if the last character is an operator or a dot
-      $("#userInput").val( currentExpression );  // then don't flip the sign
+    if ( lastChar.match("[-+*/]") || lastChar == "." ) {  // if last character is an operator or a dot
+      $("#userInput").val( currentExpression );  // then don't flip sign
     } else if ( currentExpression.slice(0, 1) == "-" ) {  // if making a negative result positive
-      $("#userInput").val( currentExpression.slice(1) );  // drop the preceding minus sign
+      $("#userInput").val( currentExpression.slice(1) );  // drop preceding minus sign
     } else if ( currentExpression.slice(-1) == ")" ) {  // if final character = parenthesis last number is negative
       $("#userInput").val( allButLastNum + lastNum.slice(2, -1) );  // remove minus sign and parentheses
     } else {  // make current number negative and encapsulate with parentheses
@@ -66,57 +67,50 @@ $(document).ready(function () {
   // Function to handle adding (or not adding) a dot to current number
   $(".dot").click(function () {
     var currentExpression = $("#userInput").val();
-    var dot = ".";
+    var dot = ".";  // dot character - used instead of grabbing from current .erb file as in operator()
     var zeroPad = "0";  // used to prefix dot with zero if no current number
     var lastChar = currentExpression.substr(currentExpression.length - 1);  // last character
-    var lastNum = getLastNum(currentExpression);  // get the value of lastNum
+    var lastNum = getLastNum(currentExpression);  // get value of lastNum
     if (currentExpression.length == 0) {  // if there is no number
-      $("#userInput").val( zeroPad + dot );  // then put a zero before the dot
-    // if last character is a dot or right parenthesis, or if the number already has a dot
+      $("#userInput").val( zeroPad + dot );  // then put a zero before dot
+    // if last character is a dot or right parenthesis, or if number already has a dot
     } else if (lastChar.match("[.)]") || lastNum.match("[.]") ) {
       $("#userInput").val( currentExpression );  // then disallow another dot
-    } else if ( lastChar.match("[-+*/]") ) {  // if the last character is an operator
-      $("#userInput").val( currentExpression + zeroPad + dot );  // then put a zero before the dot
-    } else {  // otherwise if the number is a positive integer
-      $("#userInput").val( currentExpression + dot );  // add a dot to the end of the current number
+    } else if ( lastChar.match("[-+*/]") ) {  // if last character is an operator
+      $("#userInput").val( currentExpression + zeroPad + dot );  // then put a zero before dot
+    } else {  // otherwise if number is a positive integer
+      $("#userInput").val( currentExpression + dot );  // add a dot to end of current number
     }
   });
 
-  // need to add function for operator buttons - can currently enter them first without numbers
-  // also need to add logic to prevent multiple concurrent operators
-  // Found a bug:
-  // Currently with lines 92 - 93, can't add another character after a negative
-  // Fix by breaking out operators from numbers
-
   // Function to put numeric button values in textarea field (#userInput)
   $(".operator").click(function () {
-    var buttonValue = $(this).html();
-    var currentExpression = $("#userInput").val();
+    var buttonValue = $(this).html();  // get value of button defined in current .erb file
+    var currentExpression = $("#userInput").val();  // get current contents of textarea field
     var lastChar = currentExpression.substr(currentExpression.length - 1);  // last character
     // if nothing has been entered or last character is an operator
     if ( currentExpression == "" || lastChar.match("[-+*/]") ) {
       $("#userInput").val( currentExpression );  // then disallow an operator
     } else {
-      $("#userInput").val( $("#userInput").val() + buttonValue );  // otherwise, concatenate the operator
+      $("#userInput").val( $("#userInput").val() + buttonValue );  // otherwise, concatenate operator
     }
   });
 
   // Function to put numeric button values in textarea field (#userInput)
   $(".number").click(function () {
-    var buttonValue = $(this).html();
-    var currentExpression = $("#userInput").val();
+    var buttonValue = $(this).html();  // get value of button defined in current .erb file
+    var currentExpression = $("#userInput").val();  // get current contents of textarea field
     var lastChar = currentExpression.substr(currentExpression.length - 1);  // last character
-    if ( lastChar.match("[)]") ) {  // if the last character = right parenthesis
+    if ( lastChar.match("[)]") ) {  // if last character = right parenthesis
       $("#userInput").val( currentExpression );  // then disallow another number
     } else {
-      $("#userInput").val( $("#userInput").val() + buttonValue );  // otherwise, concatenate the number
+      $("#userInput").val( $("#userInput").val() + buttonValue );  // otherwise, concatenate number
     }
   });
 
   // Function to clear textarea field
   $(".clear").click(function () {
-      $("#userInput").val( "" );
+      $("#userInput").val( "" );  // set textarea field to an empty string
   });
 
 });
-
