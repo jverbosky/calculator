@@ -16,7 +16,6 @@ end
 
 # Method to convert a numeric string into an integer or float
 def evaluate_number(numeric_string)
-  # Add logic here for: if numeric_string includes multiple "." (i.e. 3.5254.32) return "Error"
   (numeric_string.include? ".") ? numeric_string.to_f : numeric_string.to_i
 end
 
@@ -64,6 +63,5 @@ end
 # puts get_result("1.23/4.56")  # 0.26973684210526316
 # puts get_result("123/0")  # Error
 # puts get_result("1.23/0")  # Error
-# puts get_result("1..23*2")  # Error
 # puts get_result("12+13.5-7*(-4)/78.6-(-12.35)+86-5.3-0")  # 92.10852417302799
 # puts get_result("(-12)+(-13.5)-(-7)*(-4)/(-78.6)-(-12.35)+(-86.5)")  # -75.09147582697202
