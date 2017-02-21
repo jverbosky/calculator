@@ -42,9 +42,6 @@ $(document).ready(function () {
     return allButLastNum;
   }
 
-  // Found a bug:
-  // 85-(-2) <+/- sign> 85-(-
-
   // Function to flip sign (negative/positive) of current number
   $(".sign").click(function () {
     var currentExpression = $("#userInput").val();  // get the current contents of textarea field
