@@ -1,3 +1,5 @@
+// updated to address minus operator preceding current negative number (lines 18 - 22)
+
 function reverseString(string) {
     return string.split("").reverse().join("");
 }
@@ -13,7 +15,11 @@ function getLastNum(currentExpression) {
       matchOp = reversed.match(/((?!-\()-)|((?!\))[+*\/])/g);  // put operators in array but ignore negative
       matchOp = matchOp.reverse();  // reverse list of operators to correspond to original string
       lastOpIndex = currentExpression.lastIndexOf(matchOp[matchOp.length-1]);  // assign index of last operator
-      lastNum = currentExpression.substr(lastOpIndex+1);  // assign number after last operator
+      if ( matchOp.slice(-1)[0] == "-" ) {  // check if final operator is minus
+        lastNum = currentExpression.substr( lastOpIndex-1 );  // if so, decrease lastOpIndex to grab negative
+      } else {
+          lastNum = currentExpression.substr( lastOpIndex+1 );  // if not, increase lastOpIndex to grab negative
+      }
     }
   }
   else {  // otherwise number is positive, so check for operators
@@ -54,8 +60,14 @@ console.log(makeDot("(-123)"))  // (-123)
 console.log(makeDot("1.23"))  // 1.23
 console.log(makeDot("(-1.23)"))  // (-1.23)
 console.log(makeDot("3+"))  // 3+0.
+console.log(makeDot("3-"))  // 3+0.
 console.log(makeDot("3+12."))  // 3+12.
+console.log(makeDot("3-12."))  // 3+12.
 console.log(makeDot("3+123"))  // 3.123.
+console.log(makeDot("3-123"))  // 3.123.
 console.log(makeDot("3+(-123)"))  // 3+(-123)
+console.log(makeDot("3-(-123)"))  // 3+(-123)
 console.log(makeDot("3+1.23"))  // 3+1.23
+console.log(makeDot("3-1.23"))  // 3+1.23
 console.log(makeDot("3+(-1.23)"))  // 3+(-1.23)
+console.log(makeDot("3-(-1.23)"))  // 3+(-1.23)

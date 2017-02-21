@@ -17,7 +17,11 @@ $(document).ready(function () {
         matchOp = reversed.match(/((?!-\()-)|((?!\))[+*\/])/g);  // put operators in array but ignore negative
         matchOp = matchOp.reverse();  // reverse list of operators to correspond to original string
         lastOpIndex = currentExpression.lastIndexOf(matchOp[matchOp.length-1]);  // assign index of last operator
-        lastNum = currentExpression.substr(lastOpIndex+1);  // assign number after last operator
+        if ( matchOp.slice(-1)[0] == "-" ) {  // check if final operator is minus
+          lastNum = currentExpression.substr( lastOpIndex-1 );  // if so, decrease lastOpIndex to grab negative
+        } else {
+            lastNum = currentExpression.substr( lastOpIndex+1 );  // if not, increase lastOpIndex to grab negative
+        }
       }
     }
     else {  // otherwise number is positive, so check for operators
