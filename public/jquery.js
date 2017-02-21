@@ -1,15 +1,6 @@
 $(document).ready(function () {
 
-  // Function to put numeric button values in textarea field (#userInput)
-  $(".input").click(function () {
-    var buttonValue = $(this).html();
-    $("#userInput").val($("#userInput").val() + buttonValue);
-  });
-
-  // need to add function for operator buttons - can currently enter them first without numbers
-  // also need to add logic to prevent multiple concurrent operators
-
-  // Function to reverse string - used by getLastNum if current number is negative
+  // Function to reverse string - used for negative lookahead in getLastNum if current number is negative
   function reverseString(string) {
       return string.split("").reverse().join("");
   }
@@ -47,6 +38,9 @@ $(document).ready(function () {
     return allButLastNum;
   }
 
+  // Found a bug:
+  // 85-(-2) <+/- sign> 85-(-
+
   // Function to flip sign (negative/positive) of current number
   $(".sign").click(function () {
     var currentExpression = $("#userInput").val();  // get the current contents of textarea field
@@ -78,14 +72,32 @@ $(document).ready(function () {
     if (currentExpression.length == 0) {  // if there is no number
       $("#userInput").val( zeroPad + dot );  // then put a zero before the dot
     // if last character is a dot or right parenthesis, or if the number already has a dot
-    } else if (lastChar.match("[./)]") || lastNum.match("[.]") ) {
-      $("#userInput").val( currentExpression );  // then don't add another dot
+    } else if (lastChar.match("[.)]") || lastNum.match("[.]") ) {
+      $("#userInput").val( currentExpression );  // then disallow another dot
     } else if (lastChar.match("[-+*/]") ) {  // if the last character is an operator
       $("#userInput").val( currentExpression + zeroPad + dot );  // then put a zero before the dot
     } else {  // otherwise if the number is a positive integer
       $("#userInput").val( currentExpression + dot );  // add a dot to the end of the current number
     }
   });
+
+  // Function to put numeric button values in textarea field (#userInput)
+  $(".input").click(function () {
+    var buttonValue = $(this).html();
+    var currentExpression = $("#userInput").val();
+    var lastChar = currentExpression.substr(currentExpression.length - 1);  // last character
+    if (lastChar.match("[)]") ) {  // if the last character = right parenthesis
+      $("#userInput").val( currentExpression );  // then disallow another number
+    } else {
+      $("#userInput").val($("#userInput").val() + buttonValue);  // otherwise, concatenate the number
+    }
+  });
+
+  // need to add function for operator buttons - can currently enter them first without numbers
+  // also need to add logic to prevent multiple concurrent operators
+  // Found a bug:
+  // Currently with lines 92 - 93, can't add another character after a negative
+  // Fix by breaking out operators from numbers
 
   // Function to clear textarea field
   $(".clear").click(function () {
