@@ -36,8 +36,9 @@ end
 # Method to compute the result of all mathmatical expressions (multiple supported)
 def get_result(string)
   numbers = get_numbers(string)
-  number_index = 0
   operators = get_operators(string)
+  return "Error" if numbers.count == operators.count  # throw error if expression ends in operator
+  number_index = 0
   operator_index = 0
   num_1 = evaluate_number(numbers[number_index])  # start with the first number in the numbers array
   result = 0

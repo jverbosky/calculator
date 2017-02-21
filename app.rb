@@ -9,5 +9,5 @@ end
 post '/answer' do
   user_input = params[:userInput]
   answer = get_result(user_input)
-  erb :results, locals: {answer: answer}
+  erb :results, locals: {answer: answer, user_input: user_input}
 end
