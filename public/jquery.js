@@ -1,6 +1,6 @@
 $(document).ready(function () {
 
-  // have button values appear/append in textarea field (#userInput)
+  // Function to put numeric button values in textarea field (#userInput)
   $(".input").click(function () {
     var buttonValue = $(this).html();
     $("#userInput").val($("#userInput").val() + buttonValue);
@@ -9,10 +9,12 @@ $(document).ready(function () {
   // need to add function for operator buttons - can currently enter them first without numbers
   // also need to add logic to prevent multiple concurrent operators
 
+  // Function to reverse string - used by getLastNum if current number is negative
   function reverseString(string) {
       return string.split("").reverse().join("");
   }
 
+  // Function to return current number (last number in expression)
   function getLastNum(currentExpression) {
     var reversed = ""
     var matchOp = []
@@ -37,7 +39,7 @@ $(document).ready(function () {
     return lastNum;
   }
 
-  // function to return all but the current number if an expression (or nothing if not)
+  // Function to return all but current number if an expression (or nothing if not)
   function getAllButLastNum(currentExpression) {
     var lastNum = getLastNum(currentExpression);
     var allButLastNum = "";
@@ -45,13 +47,16 @@ $(document).ready(function () {
     return allButLastNum;
   }
 
-  // flip the sign (negative/positive) of the current number
+  // Function to flip sign (negative/positive) of current number
   $(".sign").click(function () {
     var currentExpression = $("#userInput").val();  // get the current contents of textarea field
     var lastNum = getLastNum(currentExpression);  // get the value of lastNum
     var allButLastNum = getAllButLastNum(currentExpression);  // get the value of allButLastNum
-    if ( currentExpression.slice(0, 1) == "-" ) {  // check if making a negative result positive
-      $("#userInput").val( currentExpression.slice(1) );  // if so, drop the minus sign at the front
+    var lastChar = currentExpression.substr(currentExpression.length - 1);  // last character
+    if (lastChar.match("[-+*/]") ) {  // if the last character is an operator
+      $("#userInput").val( currentExpression );  // then don't flip the sign
+    } else if ( currentExpression.slice(0, 1) == "-" ) {  // if making a negative result positive
+      $("#userInput").val( currentExpression.slice(1) );  // drop the preceding minus sign
     } else if ( currentExpression.slice(-1) == ")" ) {  // if final character = parenthesis last number is negative
       $("#userInput").val( allButLastNum + lastNum.slice(2, -1) );  // remove minus sign and parentheses
     } else {  // make current number negative and encapsulate with parentheses
@@ -63,7 +68,7 @@ $(document).ready(function () {
     }
   });
 
-  // Function to handle adding (or not adding) a dot to the current number
+  // Function to handle adding (or not adding) a dot to current number
   $(".dot").click(function () {
     var currentExpression = $("#userInput").val();
     var dot = ".";
@@ -82,31 +87,7 @@ $(document).ready(function () {
     }
   });
 
- // // add a zero before . if there isn't another number before it
- //  $(".dot").click(function () {
- //    // var buttonValue = $(this).html();
- //    var currentExpression = $("#userInput").val();
- //    var dot = ".";
- //    // var zeroPad = "0";
- //    // var lastChar = currentExpression.substr(currentExpression.length - 1);
- //    // // add variable for string after previous operator (want to disallow adding . if lastNum already has)
- //    // var lastNum = "something"; // need to work out the "something" part  ^~^;
- //    // if (currentExpression.length == 0) {
- //    //   $("#userInput").val(zeroPad + dot);
- //    // } else if (lastChar == "." ) {
- //    //   $("#userInput").val(currentExpression);
- //    // // need to test after working out lastNum - not sure if the match target is right here
- //    // } else if (lastNum.match( "[.]" ) ) {
- //    //   // $("#userInput").val(currentExpression);
- //    //   $("#userInput").val("something");
- //    // } else if (lastChar.match( "[-+*/]" ) ) {
- //    //   $("#userInput").val(currentExpression + zeroPad + dot);
- //    // } else {
- //      $("#userInput").val( currentExpression + dot );
- //    // }
- //  });
-
-  // clear contents of textarea field
+  // Function to clear textarea field
   $(".clear").click(function () {
       $("#userInput").val("");
   });
