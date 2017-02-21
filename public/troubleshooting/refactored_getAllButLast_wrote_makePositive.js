@@ -27,19 +27,13 @@ function getLastNum(currentExpression) {
 }
 
 function getAllButLastNum(currentExpression) {
-  var matchOp = 0
-  var lastOpIndex = 0
   var lastNum = getLastNum(currentExpression)
-  var allButLastNum = "";
-  if (currentExpression.match( /[+/*-]/g ) != null) {
-    matchOp = currentExpression.match( /[+/*-]/g );  // order of operators in regex vital!
-    lastOpIndex = currentExpression.lastIndexOf( matchOp[matchOp.length-1] );  // assign index of last operator
-    allButLastNum = currentExpression.substr( 0, lastOpIndex+1 );  // save everything before last number
-  }
+  var allButLastNum = ""
+  allButLastNum = currentExpression.slice(0, -lastNum.length)
   return allButLastNum
 }
 
-// function to make current number negative and add parentheses
+// function to make current posivite number negative and add parentheses
 function makeNegative(currentExpression) {
   var manipulated = ""
   var lastNum = getLastNum(currentExpression)
@@ -53,6 +47,15 @@ function makeNegative(currentExpression) {
   return manipulated
 }
 
+// function to make current negative number positive and remove parentheses
+function makePositive(currentExpression) {
+  var manipulated = ""
+  var lastNum = getLastNum(currentExpression)
+  var allButLastNum = getAllButLastNum(currentExpression)
+  manipulated = allButLastNum + lastNum.slice(2, -1)
+  return manipulated
+}
+
 // Sandbox testing
 console.log(getLastNum("3"))  // 3
 console.log(getLastNum("2+4.1/3.1*88.8"))  // 88.8
@@ -61,8 +64,8 @@ console.log(getLastNum("2+4.1/3.1*(-88.8)"))  // (-88.8)
 console.log(getAllButLastNum("3"))  // ""
 console.log(getAllButLastNum("3-2+4.1/3.1*88.8"))  // 3-2+4.1/3.1*
 console.log(getAllButLastNum("(-3)"))  // ""
-console.log(getAllButLastNum("3-2+4.1/3.1*(-88.8)"))  // 3.2+4.1/3.1*
+console.log(getAllButLastNum("3-2+4.1/3.1*(-88.8)"))  // 3-2+4.1/3.1*
 console.log(makeNegative("3"))  // (-3)
 console.log(makeNegative("2+4.1/3.1*88.8"))  // 2+4.1/3.1*(-88.8)
-// console.log(makePositive("(-3)"))  // (-3 > getAllButLastNum broke for negatives
-// console.log(makePositive("3-2+4.1/3.1*(-88.8)"))  // 3-2+4.1/3.1*(-8 > getAllButLastNum broke for negatives
+console.log(makePositive("(-3)"))  // 3
+console.log(makePositive("3-2+4.1/3.1*(-88.8)"))  // 3-2+4.1/3.1*88.8

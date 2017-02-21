@@ -63,16 +63,10 @@ $(document).ready(function () {
     }
 
     function getAllButLastNum(currentExpression) {
-        var matchOp = 0
-        var lastOpIndex = 0
-        var lastNum = getLastNum(currentExpression)
-        var allButLastNum = "";
-        if (currentExpression.match( /[+/*-]/g ) != null) {  // any operators = expression
-          matchOp = currentExpression.match( /[+/*-]/g );  // put all operators in an array, regex order vital
-          lastOpIndex = currentExpression.lastIndexOf( matchOp[matchOp.length-1] );  // assign index of last operator
-          allButLastNum = currentExpression.substr( 0, lastOpIndex+1 );  // save everything before last number
-        }
-        return allButLastNum
+      var lastNum = getLastNum(currentExpression)
+      var allButLastNum = ""
+      allButLastNum = currentExpression.slice(0, -lastNum.length)
+      return allButLastNum
     }
 
     // flip the sign (negative/positive) of the current number
