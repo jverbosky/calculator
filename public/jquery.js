@@ -83,7 +83,7 @@ $(document).ready(function () {
     }
   });
 
-  // Function to put numeric button values in textarea field (#userInput)
+  // Function to put operator button values in textarea field (#userInput)
   $(".operator").click(function () {
     var buttonValue = $(this).html();  // get value of button defined in current .erb file
     var currentExpression = $("#userInput").val();  // get current contents of textarea field
