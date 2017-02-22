@@ -3,6 +3,8 @@
   <head>
     <title>Calculator</title>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">  <!-- added to get scaled view on mobile -->
+    <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css'>
     <link rel="stylesheet" href="style.css">
     <!-- <link rel="icon" href="/images/favicon.ico?" type="image/x-icon">  # added to get favicon to load -->
     <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js'></script>
@@ -10,6 +12,8 @@
   </head>
   <body>
   <header>
+    <h1><a href="https://www.linkedin.com/in/johnverbosky" target="_blank">Cumulative Calculator</a></h1>
+    <!-- <h1>Cumulative Calculator</h1> -->
   </header>
   <section>
   <%= yield %>  <!-- load unique content from other .erb files -->

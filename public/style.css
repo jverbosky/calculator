@@ -8,17 +8,29 @@ body {
   font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
 }
 
-div {
-  margin: 0 auto;
-}
-
 textarea {
   font-size: 20px;
   text-align: right;
 }
 
 h1 {
+  text-align: center;
+  margin-left: 3%;
   font-size: 36px;
+  color: #808080;
+}
+
+h3 {
+  text-align: center;
+  font-style: italic;
+}
+
+h4 {
+  color: #808080;
+  margin-left: 8%;
+}
+
+a {
   color: #808080;
 }
 
@@ -63,11 +75,34 @@ SPAN.td {
 
 .submit {
   position: relative;
-  bottom: -270px;  /*-270px*/
-  left: -81px;  /*-81px*/
+  bottom: -305px;  /* -305px - save for tweaking */
+  left: -91px;  /* -91px - save for tweaking */
 }
 
-.row {
+.calculator {
+  width: 338px;  /* calculator width = 338px */
+  margin-left: 12%;
+}
+
+.keys {
+  margin-left: 10%;
   display: table;
   border-spacing: 5px;
+}
+
+.center-block {
+  display: block;
+  width: 388px;
+  margin-top: 10px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.border {
+  border-color: #808080;
+  border-width: 3px;
+  border-style: solid;
+  border-radius: 80px / 100px;
+  background-color: #C0C0C0;
+  margin-left: 4%;
 }
