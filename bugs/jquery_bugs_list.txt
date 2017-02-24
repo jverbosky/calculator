@@ -16,7 +16,7 @@ Added logic to check for minus before negative number and change .substr() targe
 ---------------------------
 flipSign()
 
-1) If the padded zero (dot) is made negative and then made positive, 
+1) If the padded zero (dot) is made negative and then made positive
 
 Verified issue occurs regardless of preceding operator.
 Verified issue does not occur if number is a zero-leading float (i.e. 0.1).
@@ -36,7 +36,7 @@ input()
 2) Able to input concurrent operators.
 3) Unable to input operator after a negative (due to blocking numbers directly after negative).
 
-To reproduce issues 1 & 2: 
+To reproduce issues 1 & 2:
 Hit any operator multiple times before or after entering a number.
 
 To reproduce issue 3:
@@ -48,7 +48,26 @@ To reproduce issue 3:
 1) Broke number and operator handling into separate functions.
 2) Added logic to operator() to check for empty expression and if last character is an operator.
 ---------------------------
+number()
 
+1) Able to enter multiple leading zeros
 
+To reproduce:
+hit 0
+hit 0 again
 
+* Logged 2/23
+1) Need to add logic to number() to check if lastNum == 0 and block other numbers if it is.
+---------------------------
+operator()
 
+1) Able to add an operator directly after the dot
+
+To reproduce:
+hit 3
+hit .
+hit +
+
+* Logged 2/24
+1) Need to add logic to operator() to check if lastChar == "." and block operators if it is.
+---------------------------
