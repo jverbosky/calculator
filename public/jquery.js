@@ -101,7 +101,10 @@ $(document).ready(function () {
     var buttonValue = $(this).html();  // get value of button defined in current .erb file
     var currentExpression = $("#userInput").val();  // get current contents of textarea field
     var lastChar = currentExpression.substr(currentExpression.length - 1);  // last character
-    if ( lastChar.match("[)]") || lastChar == "0" ) {  // if last character = right parenthesis
+    var lastNum = getLastNum(currentExpression);  // get value of lastNum
+    // if last character = right parenthesis
+    // or if the first digit of the last number is 0 and not followed by a dot
+    if ( lastChar.match("[)]") || ( lastNum.charAt(0) == "0" && lastNum.charAt(1) != "." ) ) {
       $("#userInput").val( currentExpression );  // then disallow another number
     } else {
       $("#userInput").val( $("#userInput").val() + buttonValue );  // otherwise, concatenate number

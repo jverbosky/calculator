@@ -60,8 +60,8 @@ hit 0 again
 1) Need to add logic to number() to check if lastNum == 0 and block other numbers if it is.
 
 * Fixed 2/25
-1) Added logic to number() to return currentExpression if lastChar == '0'
-    if ( lastChar.match("[)]") || lastChar == "0" ) {
+1) Added logic to number() to return currentExpression if lastChar == '0' and subsequent character isn't "."
+    if ( lastChar.match("[)]") || ( lastNum.charAt(0) == "0" && lastNum.charAt(1) != "." ) ) {
 ---------------------------
 operator()
 
