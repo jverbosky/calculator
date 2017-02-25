@@ -58,6 +58,10 @@ hit 0 again
 
 * Logged 2/23
 1) Need to add logic to number() to check if lastNum == 0 and block other numbers if it is.
+
+* Fixed 2/25
+1) Added logic to number() to return currentExpression if lastChar == '0'
+    if ( lastChar.match("[)]") || lastChar == "0" ) {
 ---------------------------
 operator()
 
@@ -70,4 +74,8 @@ hit +
 
 * Logged 2/24
 1) Need to add logic to operator() to check if lastChar == "." and block operators if it is.
+
+* Fixed 2/25
+1) Added logic to operator() to return currentExpression if lastChar == "."
+     if ( currentExpression == "" || lastChar.match("[-+*/]") || lastChar == "." ) {
 ---------------------------

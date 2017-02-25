@@ -89,7 +89,7 @@ $(document).ready(function () {
     var currentExpression = $("#userInput").val();  // get current contents of textarea field
     var lastChar = currentExpression.substr(currentExpression.length - 1);  // last character
     // if nothing has been entered or last character is an operator
-    if ( currentExpression == "" || lastChar.match("[-+*/]") ) {
+    if ( currentExpression == "" || lastChar.match("[-+*/]") || lastChar == "." ) {
       $("#userInput").val( currentExpression );  // then disallow an operator
     } else {
       $("#userInput").val( $("#userInput").val() + buttonValue );  // otherwise, concatenate operator
@@ -101,7 +101,7 @@ $(document).ready(function () {
     var buttonValue = $(this).html();  // get value of button defined in current .erb file
     var currentExpression = $("#userInput").val();  // get current contents of textarea field
     var lastChar = currentExpression.substr(currentExpression.length - 1);  // last character
-    if ( lastChar.match("[)]") ) {  // if last character = right parenthesis
+    if ( lastChar.match("[)]") || lastChar == "0" ) {  // if last character = right parenthesis
       $("#userInput").val( currentExpression );  // then disallow another number
     } else {
       $("#userInput").val( $("#userInput").val() + buttonValue );  // otherwise, concatenate number
