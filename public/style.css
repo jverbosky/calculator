@@ -15,7 +15,7 @@ textarea {
 
 h1 {
   text-align: center;
-  margin-left: 3%;
+/*  margin-left: 3%;*/
   font-size: 36px;
   color: #808080;
 }
@@ -27,7 +27,7 @@ h3 {
 
 h4 {
   color: #808080;
-  margin-left: 8%;
+  /*margin-left: 8%;*/
 }
 
 a {
@@ -48,11 +48,11 @@ SPAN.td {
 
 .button {
     background-color: #C0C0C0;
-    border: none;
+/*    border: none;*/
     padding: 10px;
     margin: 5px;
     width: 50px;
-    border-radius: 8px;
+/*    border-radius: 8px;*/
     text-align: center;
     text-decoration: none;
     display: inline-block;
@@ -73,21 +73,60 @@ SPAN.td {
   transform: translateY(2px);
 }
 
-.submit {
-  position: relative;
-  bottom: -305px;  /* -305px - save for tweaking */
-  left: -91px;  /* -91px - save for tweaking */
+.equals {
+    background-color: #C0C0C0;
+/*    border: none;*/
+/*    margin-top: 5px;*/
+    margin-bottom: 10px;
+    padding: 10px;
+/*    margin: 50px;*/
+/*    margin: 0 auto;*/
+    width: 245px;
+/*    border-radius: 8px;*/
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 20px;
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 4px #999999;
+    outline: none;
 }
+
+.equals:hover {
+  background-color: #808080;
+}
+
+.equals:active {
+  background-color: #808080;
+  box-shadow: 0 2px #666666;
+  transform: translateY(2px);
+}
+
+/*.submit {
+  position: relative;
+  bottom: -305px;  # -305px - save for tweaking
+  left: -91px;  # -91px - save for tweaking
+}*/
 
 .calculator {
   width: 338px;  /* calculator width = 338px */
-  margin-left: 12%;
+  margin: 0 auto;
+  border-width: 5px;
 }
 
 .keys {
-  margin-left: 10%;
+  margin: 0 auto;
   display: table;
   border-spacing: 5px;
+}
+
+.padding {
+  padding: 10px;
+}
+
+.centered {
+  text-align: center;
 }
 
 .center-block {
@@ -106,3 +145,13 @@ SPAN.td {
   background-color: #C0C0C0;
   margin-left: 4%;
 }
+
+.red {
+  background-color: red;
+}
+
+.blue {
+  background-color: blue;
+  padding: 10px;
+}
+
