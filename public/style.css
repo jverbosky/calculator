@@ -15,7 +15,6 @@ textarea {
 
 h1 {
   text-align: center;
-/*  margin-left: 3%;*/
   font-size: 36px;
   color: #808080;
 }
@@ -27,11 +26,44 @@ h3 {
 
 h4 {
   color: #808080;
-  /*margin-left: 8%;*/
+  margin-left: 8%;
 }
 
 a {
   color: #808080;
+}
+
+.padding {
+  padding-top: 15px;
+  padding-bottom: 10px;
+}
+
+.centered {
+  text-align: center;
+}
+
+.center-block {
+  display: block;
+  width: 388px;
+  margin: 0 auto;
+}
+
+.border {
+  border-color: #808080;
+  border-width: 3px;
+  border-style: solid;
+  border-radius: 80px / 100px;
+  background-color: #C0C0C0;
+}
+
+.calculator {
+  width: 348px;
+  margin: 0 auto;
+  background-color: #5A5D63;
+  border-color: #808080;
+  border-width: 5px;
+  border-style: solid;
+  border-radius: 25px;
 }
 
 DIV.table {
@@ -46,13 +78,17 @@ SPAN.td {
   display: table-cell;
 }
 
+.keys {
+  margin: 0 auto;
+  display: table;
+  border-spacing: 5px;
+}
+
 .button {
     background-color: #C0C0C0;
-/*    border: none;*/
     padding: 10px;
     margin: 5px;
     width: 50px;
-/*    border-radius: 8px;*/
     text-align: center;
     text-decoration: none;
     display: inline-block;
@@ -75,14 +111,9 @@ SPAN.td {
 
 .equals {
     background-color: #C0C0C0;
-/*    border: none;*/
-/*    margin-top: 5px;*/
     margin-bottom: 10px;
     padding: 10px;
-/*    margin: 50px;*/
-/*    margin: 0 auto;*/
     width: 245px;
-/*    border-radius: 8px;*/
     text-align: center;
     text-decoration: none;
     display: inline-block;
@@ -102,56 +133,3 @@ SPAN.td {
   box-shadow: 0 2px #666666;
   transform: translateY(2px);
 }
-
-/*.submit {
-  position: relative;
-  bottom: -305px;  # -305px - save for tweaking
-  left: -91px;  # -91px - save for tweaking
-}*/
-
-.calculator {
-  width: 338px;  /* calculator width = 338px */
-  margin: 0 auto;
-  border-width: 5px;
-}
-
-.keys {
-  margin: 0 auto;
-  display: table;
-  border-spacing: 5px;
-}
-
-.padding {
-  padding: 10px;
-}
-
-.centered {
-  text-align: center;
-}
-
-.center-block {
-  display: block;
-  width: 388px;
-  margin-top: 10px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.border {
-  border-color: #808080;
-  border-width: 3px;
-  border-style: solid;
-  border-radius: 80px / 100px;
-  background-color: #C0C0C0;
-  margin-left: 4%;
-}
-
-.red {
-  background-color: red;
-}
-
-.blue {
-  background-color: blue;
-  padding: 10px;
-}
-

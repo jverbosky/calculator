@@ -1,11 +1,9 @@
 <div class="container-fluid">
-  <div class="center-block blue">
-    <!-- <h1><a href="https://www.linkedin.com/in/johnverbosky" target="_blank">Cumulative Calculator</a></h1> -->
-    <!-- <h1>Cumulative Calculator</h1> -->
-    <div class="table calculator red padding">
+  <div class="center-block">
+    <div class="table calculator">
         <form method="post" action="answer" class="centered">
           <div class="padding">
-            <span class="tr"><textarea style="resize:none" rows="2" cols="30" id="userInput" name="userInput" readonly><%= answer %></textarea></span>  <!-- id for jquery.js, name for app.rb -->
+            <span class="tr"><textarea style="resize:none" rows="2" cols="28" id="userInput" name="userInput" readonly><%= answer %></textarea></span>  <!-- id for jquery.js, name for app.rb -->
           </div>
           <span class="tr"><input class="equals submit" type="submit" value="="></span>
         </form>
@@ -42,60 +40,11 @@
           </div>
         </div>
     </div>
-    <div class="border">
-      <div>
+    <div class="padding">
+      <div class="border">
         <h4>Your expression was:</h4>
         <h3><%= user_input %></h3>
       </div>
     </div>
   </div>
 </div>
-
-
-<!-- 
-<div class="container-fluid">
-  <div class="center-block">
-    <div class="table calculator">
-        <form class="tr" method="post" action="answer">
-          <span class="tr"><textarea style="resize:none" rows="2" cols="30" id="userInput" name="userInput" readonly><%= answer %></textarea></span>
-          <div class="centered">
-            <span class="tr"><input class="equals submit" type="submit" value="="></span>
-          </div>
-        </form>
-        <div class="row keys">
-          <div class="tr">
-            <span class="td"><button class="button number">7</button></span>
-            <span class="td"><button class="button number">8</button></span>
-            <span class="td"><button class="button number">9</button></span>
-            <span class="td"><button class="button operator">/</button></span>
-          </div>
-          <div class="tr">
-            <span class="td"><button class="button number">4</button></span>
-            <span class="td"><button class="button number">5</button></span>
-            <span class="td"><button class="button number">6</button></span>
-            <span class="td"><button class="button operator">*</button></span>
-          </div>
-          <div class="tr">
-            <span class="td"><button class="button number">1</button></span>
-            <span class="td"><button class="button number">2</button></span>
-            <span class="td"><button class="button number">3</button></span>
-            <span class="td"><button class="button operator">-</button></span>
-          </div>
-          <div class="tr">
-            <span class="td"><button class="button number">0</button></span>
-            <span class="td"><button class="button dot">.</button></span>
-            <span class="td"><button class="button sign">±</button></span>
-            <span class="td"><button class="button operator">+</button></span>
-          </div>
-          <div class="tr">
-            <span class="td"><button class="button clear">C</button></span>
-        </div>
-    </div>
-  </div>
-  <div class="border">
-    <div>
-      <h4>Your expression was:</h4>
-      <h3><%= user_input %></h3>
-    </div>
-  </div>
-</div> -->
