@@ -98,3 +98,39 @@ hit =
 1) Added logic to get_result() to check operators array length and return num_1 if it's zero.
 2) Added evaluate_result() to convert float to integer if decimal value is zero
 ---------------------------
+calculator.rb
+
+1) Divide negative integer results in divide by zero error
+
+To reproduce:
+1) Hit 1
+2) Hit +/- key to flip to negative
+3) Hit /
+4) Hit 3
+5) Hit =
+
+* Logged 2/28
+Error - ZeroDivision Error at /answer
+- calculator.rb line 41
+    num % num.to_i == 0 ? num.to_i : num
+- calculator.rb line 67
+	result = evaluate_result(result)  # check if number is an integer
+---------------------------
+calculator.rb
+
+Hitting = twice for lonely negative number results in error
+
+To reproduce:
+1) Hit 3
+2) Hit +/- key to flip to negative
+3) Hit =
+4) Hit = again
+
+* Logged 2/28
+Results in Error instead of negative number
+
+Idea to fix:
+- The = key is tied to form submit, so logic needs to be in calculator.rb
+- Maybe add new method to check for lonely number?  Negative needs to keep parentheses
+- Or block = key if no operators entered?
+---------------------------

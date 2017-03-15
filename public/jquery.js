@@ -12,13 +12,13 @@ $(document).ready(function () {
     var matchOp = []  // array to hold the operators extracted from the expression
     var lastOpIndex = 0  // variable to hold index (position) of last operator in expression
     var lastNum = currentExpression;  // assign the current expression to lastNum
-    if ( currentExpression.slice(-1) == ")" ) {  // if final character = parenthesis last number is negative
+    if ( currentExpression.slice(-1) === ")" ) {  // if final character = parenthesis last number is negative
       if ( currentExpression.match(/[+/*-]/g).length > 1 ) {  // multiple operators = expression
         reversed = reverseString(currentExpression);  // reverse string to use negative lookahead
         matchOp = reversed.match(/((?!-\()-)|((?!\))[+*\/])/g);  // put operators in array but ignore negative
         matchOp = matchOp.reverse();  // reverse list of operators to correspond to original string
         lastOpIndex = currentExpression.lastIndexOf(matchOp[matchOp.length-1]);  // assign index of last operator
-        if ( matchOp.slice(-1)[0] == "-" ) {  // check if final operator is minus
+        if ( matchOp.slice(-1)[0] === "-" ) {  // check if final operator is minus
           lastNum = currentExpression.substr( lastOpIndex-1 );  // if so, decrease lastOpIndex to grab negative
         } else {
             lastNum = currentExpression.substr( lastOpIndex+1 );  // if not, increase lastOpIndex to grab negative
@@ -49,11 +49,11 @@ $(document).ready(function () {
     var lastNum = getLastNum(currentExpression);  // get value of lastNum
     var allButLastNum = getAllButLastNum(currentExpression);  // get value of allButLastNum
     var lastChar = currentExpression.substr(currentExpression.length - 1);  // last character
-    if ( lastChar.match("[-+*/]") || lastChar == "." ) {  // if last character is an operator or a dot
+    if ( lastChar.match("[-+*/]") || lastChar === "." ) {  // if last character is an operator or a dot
       $("#userInput").val( currentExpression );  // then don't flip sign
-    } else if ( currentExpression.slice(0, 1) == "-" ) {  // if making a negative result positive
+    } else if ( currentExpression.slice(0, 1) === "-" ) {  // if making a negative result positive
       $("#userInput").val( currentExpression.slice(1) );  // drop preceding minus sign
-    } else if ( currentExpression.slice(-1) == ")" ) {  // if final character = parenthesis last number is negative
+    } else if ( currentExpression.slice(-1) === ")" ) {  // if final character = parenthesis last number is negative
       $("#userInput").val( allButLastNum + lastNum.slice(2, -1) );  // remove minus sign and parentheses
     } else {  // make current number negative and encapsulate with parentheses
       if ( currentExpression.match("[-+*/]") ) {  // any operators = expression
@@ -71,7 +71,7 @@ $(document).ready(function () {
     var zeroPad = "0";  // used to prefix dot with zero if no current number
     var lastChar = currentExpression.substr(currentExpression.length - 1);  // last character
     var lastNum = getLastNum(currentExpression);  // get value of lastNum
-    if (currentExpression.length == 0) {  // if there is no number
+    if (currentExpression.length === 0) {  // if there is no number
       $("#userInput").val( zeroPad + dot );  // then put a zero before dot
     // if last character is a dot or right parenthesis, or if number already has a dot
     } else if (lastChar.match("[.)]") || lastNum.match("[.]") ) {
@@ -89,7 +89,7 @@ $(document).ready(function () {
     var currentExpression = $("#userInput").val();  // get current contents of textarea field
     var lastChar = currentExpression.substr(currentExpression.length - 1);  // last character
     // if nothing has been entered or last character is an operator
-    if ( currentExpression == "" || lastChar.match("[-+*/]") || lastChar == "." ) {
+    if ( currentExpression === "" || lastChar.match("[-+*/]") || lastChar === "." ) {
       $("#userInput").val( currentExpression );  // then disallow an operator
     } else {
       $("#userInput").val( $("#userInput").val() + buttonValue );  // otherwise, concatenate operator
@@ -104,7 +104,7 @@ $(document).ready(function () {
     var lastNum = getLastNum(currentExpression);  // get value of lastNum
     // if last character = right parenthesis
     // or if the first digit of the last number is 0 and not followed by a dot
-    if ( lastChar.match("[)]") || ( lastNum.charAt(0) == "0" && lastNum.charAt(1) != "." ) ) {
+    if ( lastChar.match("[)]") || ( lastNum.charAt(0) === "0" && lastNum.charAt(1) != "." ) ) {
       $("#userInput").val( currentExpression );  // then disallow another number
     } else {
       $("#userInput").val( $("#userInput").val() + buttonValue );  // otherwise, concatenate number
