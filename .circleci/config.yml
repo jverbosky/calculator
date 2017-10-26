@@ -56,6 +56,13 @@ jobs:
             java -jar selenium-server-standalone-3.5.3.jar
           background: true
 
+      - type: shell
+        name: Start Xvfb
+        command: |
+          wget http://selenium-release.storage.googleapis.com/3.5.3/selenium-server-standalone-3.5.3.jar -O selenium-server.jar
+          Xvfb :7055
+        background: true
+
       # Defaults:        
       # Database setup
       # - run: bundle exec rake db:create
