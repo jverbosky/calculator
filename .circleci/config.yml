@@ -18,29 +18,21 @@ jobs:
       # Bundle install dependencies
       - run: bundle install --path vendor/bundle
 
-      # - run:
-      #     name: download geckodriver
-      #     command: |
-      #       wget -O geckodriver.tar.gz https://github.com/mozilla/geckodriver/releases/download/v0.19.0/geckodriver-v0.19.0-linux64.tar.gz
-      #     background: true
+      # Download geckodriver
+      - run: wget -O geckodriver.tar.gz https://github.com/mozilla/geckodriver/releases/download/v0.19.0/geckodriver-v0.19.0-linux64.tar.gz
 
-      # - run:
-      #     name: unzip geckodriver
-      #     command: |
-      #       gunzip -c geckodriver.tar.gz > /usr/bin/geckodriver | tar xopf -
-      #     background: true
+      # Unzip geckodriver
+      - run:  gunzip -c geckodriver.tar.gz > /usr/bin/geckodriver | tar xopf -
+
+      # Setup geckodriver
+      - run: chmod +x /usr/bin/geckodriver
+      # - run: chmod +x geckodriver && mv geckodriver /usr/bin/
 
       # # - run:
       # #     name: setup geckodriver
       # #     command: |
       # #       chmod +x geckodriver && mv geckodriver /home/ubuntu/bin/
       # #     background: true
-
-      # - run:
-      #     name: setup geckodriver
-      #     command: |
-      #       chmod +x geckodriver && mv geckodriver /usr/bin/
-      #     background: true
 
       # Store bundle cache
       - type: cache-save
