@@ -10,11 +10,10 @@ class ThrivyTestCase < Test::Unit::TestCase
     # caps = Selenium::WebDriver::Firefox::Options.new(args: ['-headless'])
     # @driver = Selenium::WebDriver.for :firefox #, options: caps
 
-    caps = Selenium::WebDriver::Firefox::Options.new(args: ['-headless'])
-    @driver = Selenium::WebDriver.for :firefox, options: caps
-
     # caps = Selenium::WebDriver::Firefox::Options.new(args: ['-headless'])
-    # @driver = Selenium::WebDriver.for:firefox, options: caps
+    # @driver = Selenium::WebDriver.for :firefox, options: caps
+
+    @driver = Selenium::WebDriver.for :firefox
 
     target_size = Selenium::WebDriver::Dimension.new(768, 894)
     @driver.manage.window.size = target_size
@@ -24,7 +23,8 @@ class ThrivyTestCase < Test::Unit::TestCase
   end  
 
   def teardown
-    @driver.close
+    # @driver.close
+    @driver.quit
   end
 
   def test_webpage
