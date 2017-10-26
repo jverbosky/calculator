@@ -10,15 +10,12 @@ class ThrivyTestCase < Test::Unit::TestCase
     # caps = Selenium::WebDriver::Firefox::Options.new(args: ['-headless'])
     # @driver = Selenium::WebDriver.for :firefox #, options: caps
 
-    # caps = Selenium::WebDriver::Firefox::Options.new(args: ['-headless'])
-    # @driver = Selenium::WebDriver.for :firefox, options: caps
-
-    @driver = Selenium::WebDriver.for :firefox
+    caps = Selenium::WebDriver::Firefox::Options.new(args: ['-headless'])
+    @driver = Selenium::WebDriver.for :firefox, options: caps
 
     target_size = Selenium::WebDriver::Dimension.new(768, 894)
     @driver.manage.window.size = target_size
-    # @driver.navigate.to("https://calculator-jv.herokuapp.com/")
-    @driver.navigate.to("https://www.google.com/")
+    @driver.navigate.to("https://calculator-jv.herokuapp.com/")
     @wait = Selenium::WebDriver::Wait.new(:timeout => 15)
   end  
 
@@ -28,8 +25,7 @@ class ThrivyTestCase < Test::Unit::TestCase
   end
 
   def test_webpage
-    # @driver.navigate.to "https://calculator-jv.herokuapp.com/"
-    @driver.navigate.to "https://www.google.com/"
+    @driver.navigate.to "https://calculator-jv.herokuapp.com/"
     title_link = @driver.find_element(:xpath, '//*[@id="hplogo"]').displayed?
     assert_equal(title_link, true, "title link isn't displaying")
   end
