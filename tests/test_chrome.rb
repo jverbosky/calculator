@@ -9,7 +9,7 @@ class ThrivyTestCase < Test::Unit::TestCase
 
   def setup
     caps = Selenium::WebDriver::Remote::Capabilities.chrome(chromeOptions: { args: [ "--headless" ]})  
-    @driver = Selenium::WebDriver.for:chrome #, desired_capabilities:caps
+    @driver = Selenium::WebDriver.for:chrome, desired_capabilities:caps
     target_size = Selenium::WebDriver::Dimension.new(768, 894)
     @driver.manage.window.size = target_size
     @driver.navigate.to("https://calculator-jv.herokuapp.com/")
