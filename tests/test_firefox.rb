@@ -5,15 +5,14 @@ load '../local_env.rb' if File.exist?('../local_env.rb')
 
 # NOTE: this is to fix random Chrome shutdown failure on CI
 # Should be fixed in selenium >= 3.0.0
-class Selenium::WebDriver::Firefox::Service
-  alias_method :original_stop, :stop
+# class Selenium::WebDriver::Firefox::Service  # not clear if Firefox::Service is valid
+#   alias_method :original_stop, :stop
 
-  def stop
-    original_stop
-  rescue Net::ReadTimeout
-  end
-end
-
+#   def stop
+#     original_stop
+#   rescue Net::ReadTimeout
+#   end
+# end
 
 
 class ThrivyTestCase < Test::Unit::TestCase
@@ -26,10 +25,10 @@ class ThrivyTestCase < Test::Unit::TestCase
     caps = Selenium::WebDriver::Firefox::Options.new(args: ['-headless'])
     @driver = Selenium::WebDriver.for :firefox, options: caps
 
-    target_size = Selenium::WebDriver::Dimension.new(768, 894)
-    @driver.manage.window.size = target_size
-    @driver.navigate.to("https://calculator-jv.herokuapp.com/")
-    @wait = Selenium::WebDriver::Wait.new(:timeout => 15)
+    # target_size = Selenium::WebDriver::Dimension.new(768, 894)
+    # @driver.manage.window.size = target_size
+    # @driver.navigate.to("https://calculator-jv.herokuapp.com/")
+    # @wait = Selenium::WebDriver::Wait.new(:timeout => 15)
   end  
 
   def teardown
