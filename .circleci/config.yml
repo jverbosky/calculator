@@ -19,6 +19,11 @@ jobs:
       # Bundle install dependencies
       - run: bundle install --path vendor/bundle
 
+      -run: sudo apt-get update
+      -run: sudo pip install mozdownload mozinstall
+      -run: mozdownload --version latest --destination firefox.tar.bz2
+      -run: mozinstall firefox.tar.bz2
+
       # Download geckodriver
       - run: wget -O geckodriver.tar.gz https://github.com/mozilla/geckodriver/releases/download/v0.19.0/geckodriver-v0.19.0-linux64.tar.gz
 
