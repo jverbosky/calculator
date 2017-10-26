@@ -3,6 +3,19 @@ require 'test/unit'
 
 load '../local_env.rb' if File.exist?('../local_env.rb')
 
+# NOTE: this is to fix random Chrome shutdown failure on CI
+# Should be fixed in selenium >= 3.0.0
+class Selenium::WebDriver::Firefox::Service
+  alias_method :original_stop, :stop
+
+  def stop
+    original_stop
+  rescue Net::ReadTimeout
+  end
+end
+
+
+
 class ThrivyTestCase < Test::Unit::TestCase
 
   def setup
@@ -26,7 +39,7 @@ class ThrivyTestCase < Test::Unit::TestCase
 
   def test_webpage
     @driver.navigate.to "https://calculator-jv.herokuapp.com/"
-    title_link = @driver.find_element(:xpath, '//*[@id="hplogo"]').displayed?
+    title_link = @driver.find_element(:xpath, "/html/body/header/h1/a").displayed?
     assert_equal(title_link, true, "title link isn't displaying")
   end
 
