@@ -32,11 +32,14 @@ jobs:
       - run: mkdir ~/calculator/gecko/
 
       # Move geckodriver to directory
-      # - run: mv geckodriver ~/calculator/gecko/
-      - run: mv geckodriver /usr/local/bin/
+      - run: mv geckodriver ~/calculator/gecko/
+      # - run: mv geckodriver /usr/local/bin/
+
+      # Verify gecko driver is in directory
+      - run: ls ~/calculator/gecko/
 
       # Update PATH to include directory
-      # - run: echo 'export PATH=~/calculator/gecko:$PATH' >> ~/.bashrc
+      - run: echo 'export PATH=~/calculator/gecko:$PATH' >> $BASH_ENV
 
       # View PATH
       - run: echo $PATH
