@@ -25,8 +25,11 @@ jobs:
       - run:  gunzip -c geckodriver.tar.gz | tar xopf -
 
       # Setup geckodriver
-      - run: chmod +x geckodriver && mv geckodriver /home/ubuntu/bin/geckodriver
+      - run: chmod +x geckodriver
       # - run: chmod +x geckodriver && mv geckodriver /usr/bin/
+
+      # Move geckodriver to directory in PATH
+      - run: mv ./geckodriver /home/ubuntu/bin/
 
       # # - run:
       # #     name: setup geckodriver
