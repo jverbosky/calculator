@@ -37,6 +37,9 @@ jobs:
       # Update PATH to include directory
       - run: echo 'export PATH=~/calculator/gecko:$PATH' >> ~/.bashrc
 
+      # View PATH
+      - run: echo $PATH
+
       # # - run:
       # #     name: setup geckodriver
       # #     command: |
