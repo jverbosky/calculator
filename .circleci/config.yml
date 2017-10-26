@@ -19,6 +19,8 @@ jobs:
       # Bundle install dependencies
       - run: bundle install --path vendor/bundle
 
+      - run: npm install -g npm@3
+      - run: sudo pip install --upgrade pip
       - run: sudo apt-get update
       - run: sudo pip install mozdownload mozinstall
       - run: mozdownload --version latest --destination firefox.tar.bz2
