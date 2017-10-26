@@ -70,8 +70,8 @@ jobs:
         command: rake test
 
       # collect reports
-      - store_artifacts:
-        path
+      # - store_artifacts:
+      #   path
 
 
       - type: store_test_results
