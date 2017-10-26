@@ -25,7 +25,7 @@ jobs:
       - run:  gunzip -c geckodriver.tar.gz | tar xopf -
 
       # Setup geckodriver
-      - run: chmod +x geckodriver
+      - run: chmod +x geckodriver && mv geckodriver /usr/local/bin
       # - run: chmod +x geckodriver && mv geckodriver /usr/bin/
 
       # # - run:
