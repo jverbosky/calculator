@@ -18,7 +18,8 @@ class ThrivyTestCase < Test::Unit::TestCase
 
     target_size = Selenium::WebDriver::Dimension.new(768, 894)
     @driver.manage.window.size = target_size
-    @driver.navigate.to("https://calculator-jv.herokuapp.com/")
+    # @driver.navigate.to("https://calculator-jv.herokuapp.com/")
+    @driver.navigate.to("https://www.google.com/")
     @wait = Selenium::WebDriver::Wait.new(:timeout => 15)
   end  
 
@@ -27,8 +28,9 @@ class ThrivyTestCase < Test::Unit::TestCase
   end
 
   def test_webpage
-    @driver.navigate.to "https://calculator-jv.herokuapp.com/"
-    title_link = @driver.find_element(:xpath, "/html/body/header/h1/a").displayed?
+    # @driver.navigate.to "https://calculator-jv.herokuapp.com/"
+    @driver.navigate.to "https://www.google.com/"
+    title_link = @driver.find_element(:xpath, '//*[@id="hplogo"]').displayed?
     assert_equal(title_link, true, "title link isn't displaying")
   end
 
