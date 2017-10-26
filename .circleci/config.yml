@@ -45,6 +45,9 @@ jobs:
       - run: echo $PATH
       # /usr/local/bundle/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
+      # Create directory for tests
+      - run: mkdir ~/calculator/test-results/
+
       # # - run:
       # #     name: setup geckodriver
       # #     command: |
@@ -68,7 +71,7 @@ jobs:
 
       # collect reports
       - type: store_test_results
-        path: /tmp/test-results
+        path: ~/calculator/test-results
 
 
 # Testing - reference

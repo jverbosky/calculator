@@ -6,8 +6,15 @@ load '../local_env.rb' if File.exist?('../local_env.rb')
 class ThrivyTestCase < Test::Unit::TestCase
 
   def setup
-    caps = Selenium::WebDriver::Firefox::Options.new(args: ['-headless'])
-    @driver = Selenium::WebDriver.for :firefox, options: caps
+    # works non-headless
+    # caps = Selenium::WebDriver::Firefox::Options.new(args: ['-headless'])
+    # @driver = Selenium::WebDriver.for :firefox #, options: caps
+
+    # caps = Selenium::WebDriver::Firefox::Options.new(args: ['-headless'])
+    # @driver = Selenium::WebDriver.for :firefox, options: caps
+
+    # caps = Selenium::WebDriver::Firefox::Options.new(args: ['-headless'])
+    @driver = Selenium::WebDriver.for :firefox #, options: caps
 
     target_size = Selenium::WebDriver::Dimension.new(768, 894)
     @driver.manage.window.size = target_size
