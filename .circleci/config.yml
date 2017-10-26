@@ -5,146 +5,230 @@
 version: 2
 jobs:
   build:
-    working_directory: ~/calculator
     docker:
       # specify the version you desire here
-      - image: circleci/ruby:2.4.1-node-browsers
-      # - image: circleci/ruby:2.4.1-browsers  # works for Chrome, fails on geckodriver
-      # - image: selenium/standalone-chrome:3.1.0
-
-        environment:
-          TESTOPTS: "--ci-dir=/tmp/test-results"
-          APP_ENV: test
-
-
+       - image: circleci/ruby:2.4.1-node-browsers
+      
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
       # documented at https://circleci.com/docs/2.0/circleci-images/
       # - image: circleci/postgres:9.4
 
-    # Default:
-    # working_directory: ~/repo
+    working_directory: ~/repo
 
     steps:
       - checkout
 
-      # Restore bundle cache
-      - type: cache-restore
-        key: calculator-{{ checksum "Gemfile.lock" }}
+      # Download and cache dependencies
+      - restore_cache:
+          keys:
+          - v1-dependencies-{{ checksum "Gemfile.lock" }}
+          # fallback to using the latest cache if no exact match is found
+          - v1-dependencies-
 
-      # Bundle install dependencies
-      - run: bundle install --path vendor/bundle
+      - run:
+          name: install dependencies
+          command: |
+            bundle install --jobs=4 --retry=3 --path vendor/bundle
 
-      # Store bundle cache
-      - type: cache-save
-        key: calculator-{{ checksum "Gemfile.lock" }}
-        paths:
-          - vendor/bundle
+      # - run:
+      #     name: download geckodriver
+      #     command: |
+      #       wget -O geckodriver.tar.gz https://github.com/mozilla/geckodriver/releases/download/v0.19.0/geckodriver-v0.19.0-linux64.tar.gz
+      #     background: true
 
-      # Run minitest
-      # - type: shell
-      #   # command: bundle exec rake
-      #   command: rake test
+      # - run:
+      #     name: unzip geckodriver
+      #     command: |
+      #       gunzip -c geckodriver.tar.gz > /usr/bin/geckodriver | tar xopf -
+      #     background: true
 
-      # # Production version
+      # # - run:
+      # #     name: setup geckodriver
+      # #     command: |
+      # #       chmod +x geckodriver && mv geckodriver /home/ubuntu/bin/
+      # #     background: true
+
+      # - run:
+      #     name: setup geckodriver
+      #     command: |
+      #       chmod +x geckodriver && mv geckodriver /usr/bin/
+      #     background: true
+
+
+      - save_cache:
+          paths:
+            - ./vendor/bundle
+          key: v1-dependencies-{{ checksum "Gemfile.lock" }}
+
+      # run tests!
       # - run:
       #     name: run tests
       #     command: |
       #       rake test
 
+      - type: shell
+        command: rake test
 
-      # Save artifacts
-      # - type: store_test_results
-      #   path: /tmp/test-results
-
-
-
-
-      # # Download and cache dependencies
-      # - restore_cache:
-      #     keys:
-      #     - v1-dependencies-{{ checksum "Gemfile.lock" }}
-      #     # fallback to using the latest cache if no exact match is found
-      #     - v1-dependencies-
-
-      # - run:
-      #     name: install dependencies
-      #     command: |
-      #       bundle install --jobs=4 --retry=3 --path vendor/bundle
-
-      # - save_cache:
-      #     paths:
-      #       - ./vendor/bundle
-      #     key: v1-dependencies-{{ checksum "Gemfile.lock" }}
-
-      # # - run:
-      # #     name: Download Selenium
-      # #     command: |
-      # #       curl -O http://selenium-release.storage.googleapis.com/3.6/selenium-server-standalone-3.6.0.jar
-
-      # # - run:
-      # #     name: Start Selenium
-      # #     command: |
-      # #       java -jar selenium-server-standalone-3.6.0.jar
-      # #     background: true
-
-      # # - type: shell
-      # #   name: Start Xvfb
-      # #   command: |
-      # #     wget http://selenium-release.storage.googleapis.com/3.6/selenium-server-standalone-3.6.0.jar -O selenium-server.jar
-      # #     Xvfb :7055
-      # #   background: true
-
-      - run:
-          name: Download Geckodriver
-          command: |
-            wget -O geckodriver.tar.gz https://github.com/mozilla/geckodriver/releases/download/v0.19.0/geckodriver-v0.19.0-linux64.tar.gz
-          background: true
-
-      - run:
-          name: Unzip Geckodriver
-          command: |
-            gunzip -c geckodriver.tar.gz | tar xopf -
-          background: true
-
-      - run:
-          name: Setup Geckodriver
-          command: |
-            chmod +x geckodriver && mv geckodriver /home/ubuntu/bin/
-          background: true
-
-
-      # # Defaults:        
-      # # Database setup
-      # # - run: bundle exec rake db:create
-      # # - run: bundle exec rake db:schema:load
-
-      # # run tests!
-      
-      # # Production version
-      - run:
-          name: run tests
-          command: |
-            rake test
-
-      # # Defaults:
-      # # - run:
-      # #     name: run tests
-      # #     command: |
-      # #       mkdir /tmp/test-results
-      # #       TEST_FILES="$(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)"
-            
-      # #       bundle exec rspec --format progress \
-      # #                       --format RspecJunitFormatter \
-      # #                       --out /tmp/test-results/rspec.xml \
-      # #                       --format progress \
-      # #                       "${TEST_FILES}"
-
-      # #       rake test
-
-      # # collect reports
+      # collect reports
       - store_test_results:
           path: /tmp/test-results
       - store_artifacts:
           path: /tmp/test-results
           destination: test-results
+
+
+
+
+# Testing - reference
+
+# Ruby CircleCI 2.0 configuration file
+#
+# Check https://circleci.com/docs/2.0/language-ruby/ for more details
+#
+# version: 2
+# jobs:
+#   build:
+#     working_directory: ~/calculator
+#     docker:
+#       # specify the version you desire here
+#       - image: circleci/ruby:2.4.1-node-browsers
+#       # - image: circleci/ruby:2.4.1-browsers  # works for Chrome, fails on geckodriver
+#       # - image: selenium/standalone-chrome:3.1.0
+
+#         environment:
+#           TESTOPTS: "--ci-dir=/tmp/test-results"
+#           APP_ENV: test
+
+
+#       # Specify service dependencies here if necessary
+#       # CircleCI maintains a library of pre-built images
+#       # documented at https://circleci.com/docs/2.0/circleci-images/
+#       # - image: circleci/postgres:9.4
+
+#     # Default:
+#     # working_directory: ~/repo
+
+#     steps:
+#       - checkout
+
+#       # Restore bundle cache
+#       - type: cache-restore
+#         key: calculator-{{ checksum "Gemfile.lock" }}
+
+#       # Bundle install dependencies
+#       - run: bundle install --path vendor/bundle
+
+#       # Store bundle cache
+#       - type: cache-save
+#         key: calculator-{{ checksum "Gemfile.lock" }}
+#         paths:
+#           - vendor/bundle
+
+#       # Run minitest
+#       # - type: shell
+#       #   # command: bundle exec rake
+#       #   command: rake test
+
+#       # # Production version
+#       # - run:
+#       #     name: run tests
+#       #     command: |
+#       #       rake test
+
+
+#       # Save artifacts
+#       # - type: store_test_results
+#       #   path: /tmp/test-results
+
+
+
+
+#       # # Download and cache dependencies
+#       # - restore_cache:
+#       #     keys:
+#       #     - v1-dependencies-{{ checksum "Gemfile.lock" }}
+#       #     # fallback to using the latest cache if no exact match is found
+#       #     - v1-dependencies-
+
+#       # - run:
+#       #     name: install dependencies
+#       #     command: |
+#       #       bundle install --jobs=4 --retry=3 --path vendor/bundle
+
+#       # - save_cache:
+#       #     paths:
+#       #       - ./vendor/bundle
+#       #     key: v1-dependencies-{{ checksum "Gemfile.lock" }}
+
+#       # # - run:
+#       # #     name: Download Selenium
+#       # #     command: |
+#       # #       curl -O http://selenium-release.storage.googleapis.com/3.6/selenium-server-standalone-3.6.0.jar
+
+#       # # - run:
+#       # #     name: Start Selenium
+#       # #     command: |
+#       # #       java -jar selenium-server-standalone-3.6.0.jar
+#       # #     background: true
+
+#       # # - type: shell
+#       # #   name: Start Xvfb
+#       # #   command: |
+#       # #     wget http://selenium-release.storage.googleapis.com/3.6/selenium-server-standalone-3.6.0.jar -O selenium-server.jar
+#       # #     Xvfb :7055
+#       # #   background: true
+
+#       - run:
+#           name: Download Geckodriver
+#           command: |
+#             wget -O geckodriver.tar.gz https://github.com/mozilla/geckodriver/releases/download/v0.19.0/geckodriver-v0.19.0-linux64.tar.gz
+#           background: true
+
+#       - run:
+#           name: Unzip Geckodriver
+#           command: |
+#             gunzip -c geckodriver.tar.gz | tar xopf -
+#           background: true
+
+#       - run:
+#           name: Setup Geckodriver
+#           command: |
+#             chmod +x geckodriver && mv geckodriver /home/ubuntu/bin/
+#           background: true
+
+
+#       # # Defaults:        
+#       # # Database setup
+#       # # - run: bundle exec rake db:create
+#       # # - run: bundle exec rake db:schema:load
+
+#       # # run tests!
+      
+#       # # Production version
+#       - run:
+#           name: run tests
+#           command: |
+#             rake test
+
+#       # # Defaults:
+#       # # - run:
+#       # #     name: run tests
+#       # #     command: |
+#       # #       mkdir /tmp/test-results
+#       # #       TEST_FILES="$(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)"
+            
+#       # #       bundle exec rspec --format progress \
+#       # #                       --format RspecJunitFormatter \
+#       # #                       --out /tmp/test-results/rspec.xml \
+#       # #                       --format progress \
+#       # #                       "${TEST_FILES}"
+
+#       # #       rake test
+
+#       # # collect reports
+#       - store_test_results:
+#           path: /tmp/test-results
+#       - store_artifacts:
+#           path: /tmp/test-results
+#           destination: test-results
