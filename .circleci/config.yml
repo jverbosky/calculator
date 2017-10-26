@@ -20,16 +20,14 @@ jobs:
       - checkout
 
       # Download and cache dependencies
-      - restore_cache:
-          keys:
+
+      - type: cache-restore
+          key:
           - v1-dependencies-{{ checksum "Gemfile.lock" }}
           # fallback to using the latest cache if no exact match is found
-          - v1-dependencies-
+          # - v1-dependencies-
 
-      - run:
-          name: install dependencies
-          command: |
-            bundle install --jobs=4 --retry=3 --path vendor/bundle
+      - run: bundle install --path vendor/bundle
 
       # - run:
       #     name: download geckodriver
@@ -56,10 +54,10 @@ jobs:
       #     background: true
 
 
-      - save_cache:
+      - type: cache-save
+          key: v1-dependencies-{{ checksum "Gemfile.lock" }}
           paths:
             - ./vendor/bundle
-          key: v1-dependencies-{{ checksum "Gemfile.lock" }}
 
       # run tests!
       # - run:
@@ -71,13 +69,8 @@ jobs:
         command: rake test
 
       # collect reports
-      - store_test_results:
-          path: /tmp/test-results
-      - store_artifacts:
-          path: /tmp/test-results
-          destination: test-results
-
-
+      - type: store_test_results
+        path: /tmp/test-results
 
 
 # Testing - reference
