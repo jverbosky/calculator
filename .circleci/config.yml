@@ -28,8 +28,14 @@ jobs:
       - run: chmod +x geckodriver
       # - run: chmod +x geckodriver && mv geckodriver /usr/bin/
 
-      # Move geckodriver to directory in PATH
-      - run: mv geckodriver /home/ubuntu/bin/
+      # Create directory for geckodriver
+      - run: mkdir ~/calculator/gecko/
+
+      # Move geckodriver to directory
+      - run: mv geckodriver ~/calculator/gecko/
+
+      # Update PATH to include directory
+      - run: echo 'export PATH=~/calculator/gecko:$PATH' >> ~/.bashrc
 
       # # - run:
       # #     name: setup geckodriver
