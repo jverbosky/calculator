@@ -42,9 +42,9 @@ jobs:
           - vendor/bundle
 
       # Run minitest
-      - type: shell
-        # command: bundle exec rake
-        command: rake test
+      # - type: shell
+      #   # command: bundle exec rake
+      #   command: rake test
 
       # # Production version
       # - run:
@@ -54,8 +54,8 @@ jobs:
 
 
       # Save artifacts
-      - type: store_test_results
-        path: /tmp/test-results
+      # - type: store_test_results
+      #   path: /tmp/test-results
 
 
 
@@ -95,19 +95,19 @@ jobs:
       # #     Xvfb :7055
       # #   background: true
 
-      - run
+      - run:
           name: Download Geckodriver
           command: |
             wget -O geckodriver.tar.gz https://github.com/mozilla/geckodriver/releases/download/v0.19.0/geckodriver-v0.19.0-linux64.tar.gz
           background: true
 
-      - run
+      - run:
           name: Unzip Geckodriver
           command: |
             gunzip -c geckodriver.tar.gz | tar xopf -
           background: true
 
-      - run
+      - run:
           name: Setup Geckodriver
           command: |
             chmod +x geckodriver && mv geckodriver /home/ubuntu/bin/
@@ -143,8 +143,8 @@ jobs:
       # #       rake test
 
       # # collect reports
-      # - store_test_results:
-      #     path: /tmp/test-results
-      # - store_artifacts:
-      #     path: /tmp/test-results
-      #     destination: test-results
+      - store_test_results:
+          path: /tmp/test-results
+      - store_artifacts:
+          path: /tmp/test-results
+          destination: test-results
