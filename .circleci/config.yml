@@ -95,6 +95,25 @@ jobs:
       # #     Xvfb :7055
       # #   background: true
 
+      - run
+          name: Download Geckodriver
+          command: |
+            wget -O geckodriver.tar.gz https://github.com/mozilla/geckodriver/releases/download/v0.19.0/geckodriver-v0.19.0-linux64.tar.gz
+          background: true
+
+      - run
+          name: Unzip Geckodriver
+          command: |
+            gunzip -c geckodriver.tar.gz | tar xopf -
+          background: true
+
+      - run
+          name: Setup Geckodriver
+          command: |
+            chmod +x geckodriver && mv geckodriver /home/ubuntu/bin/
+          background: true
+
+
       # # Defaults:        
       # # Database setup
       # # - run: bundle exec rake db:create
@@ -103,10 +122,10 @@ jobs:
       # # run tests!
       
       # # Production version
-      # - run:
-      #     name: run tests
-      #     command: |
-      #       rake test
+      - run:
+          name: run tests
+          command: |
+            rake test
 
       # # Defaults:
       # # - run:
