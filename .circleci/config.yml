@@ -82,7 +82,8 @@ jobs:
       #   command: rake test
 
       # Run tests
-      - run: ruby tests/test_firefox.rb
+      # - run: ruby tests/test_firefox.rb  # works!
+      - run: rake test
 
       # - type: store_test_results
       #   path: ~/calculator/test-results
