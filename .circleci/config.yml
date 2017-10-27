@@ -23,9 +23,6 @@ jobs:
       # Install Ruby for selenium/standalone-chrome
       - run: sudo apt-get --assume-yes install ruby-dev
 
-      # Install development tools so ffi dependency will install
-      # - run: sudo apt-get install libgmp-dev
-
       # Install make so developer tools will work
       - run: sudo apt-get --assume-yes install make
 
@@ -36,7 +33,7 @@ jobs:
       - run: sudo gem install bundler
 
       # Bundle install dependencies
-      - run: bundle install --path vendor/bundle
+      - run: sudo bundle install --path vendor/bundle
 
       # Update apt and install firefox - not needed, already current
       - run: sudo apt-get --assume-yes install firefox
