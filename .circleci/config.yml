@@ -23,6 +23,9 @@ jobs:
       # Install Ruby for selenium/standalone-chrome
       - run: sudo apt-get --assume-yes install ruby-full
 
+      # Install bundler
+      - run: gem install bundler
+
       # Bundle install dependencies
       - run: bundle install --path vendor/bundle
 
