@@ -9,7 +9,7 @@ jobs:
     docker:
        # - image: circleci/ruby:2.4.1-node-browsers
        # - image: circleci/ruby:2.4.1-browsers
-       -image: selenium/standalone-chrome
+       - image: selenium/standalone-chrome
     steps:
       - checkout
 
