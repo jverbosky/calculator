@@ -33,7 +33,7 @@ jobs:
       - run: sudo gem install bundler
 
       # Bundle install dependencies
-      - run: sudo bundle install --path vendor/bundle
+      - run: bundle install --path vendor/bundle
 
       # Update apt and install firefox - not needed, already current
       - run: sudo apt-get --assume-yes install firefox
@@ -72,6 +72,9 @@ jobs:
         key: collect-{{ checksum "Gemfile.lock" }}
         paths:
           - ./vendor/bundle
+
+      # Install bundler
+      - run: sudo gem install selenium-webdriver
 
       # Run tests
       - type: shell
