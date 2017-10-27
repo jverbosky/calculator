@@ -24,10 +24,13 @@ jobs:
       - run: sudo apt-get --assume-yes install ruby-dev
 
       # Install development tools so ffi dependency will install
-      - run: sudo apt-get install libgmp-dev
+      # - run: sudo apt-get install libgmp-dev
 
       # Install make so developer tools will work
       # - run: sudo apt-get install make
+
+      # Install gcc so ffi gem will install
+      - run: sudo apt-get install gcc
 
       # Install bundler
       - run: sudo gem install bundler
