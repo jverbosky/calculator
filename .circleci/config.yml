@@ -21,7 +21,7 @@ jobs:
       - run: sudo apt update
 
       # Install Ruby for selenium/standalone-chrome
-      - run: sudo apt-get --assume-yes install ruby-full
+      - run: sudo apt-get --assume-yes install ruby-dev
 
       # Install make so developer tools will work
       - run: sudo apt-get install make
