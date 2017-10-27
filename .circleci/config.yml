@@ -30,7 +30,7 @@ jobs:
       # - run: sudo apt-get install make
 
       # Install gcc so ffi gem will install
-      - run: sudo apt-get install gcc
+      - run: sudo apt-get --assume-yes install gcc
 
       # Install bundler
       - run: sudo gem install bundler
