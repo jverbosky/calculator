@@ -35,7 +35,7 @@ jobs:
       # Bundle install dependencies
       - run: bundle install --path vendor/bundle
 
-      # Update apt and install firefox - not needed, already current
+      # Install firefox
       - run: sudo apt-get --assume-yes install firefox
 
       # Download geckodriver
@@ -77,9 +77,11 @@ jobs:
       - run: sudo gem install selenium-webdriver
 
       # Run tests
-      - type: shell
-        command: rake test
+      # - type: shell
+      #   command: rake test
 
+      # Run tests
+      - run: ruby test_firefox.rb
 
       # - type: store_test_results
       #   path: ~/calculator/test-results
