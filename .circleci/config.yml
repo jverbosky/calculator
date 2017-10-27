@@ -33,7 +33,8 @@ jobs:
       - run: sudo gem install bundler
 
       # Bundle install dependencies
-      - run: bundle install --path vendor/bundle
+      # - run: bundle install --path vendor/bundle
+      - run: bundle install
 
       # Install firefox
       - run: sudo apt-get --assume-yes install firefox
@@ -73,8 +74,8 @@ jobs:
         paths:
           - ./vendor/bundle
 
-      # Install bundler
-      - run: sudo gem install selenium-webdriver
+      # Install selenium-webdriver - have to run here or gem not found
+      # - run: sudo gem install selenium-webdriver
 
       # Run tests
       # - type: shell
