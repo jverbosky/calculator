@@ -16,64 +16,90 @@ jobs:
 
       # Restore bundle cache
       - type: cache-restore
-        key: v2-dependencies-{{ checksum "Gemfile.lock" }}
+        key: calculator-cache-{{ checksum "Gemfile.lock" }}
 
-      # Update apt
-      - run: sudo apt update
-
-      # Install Ruby for selenium/standalone-chrome
-      - run: sudo apt-get --assume-yes install ruby-dev
-
-      # Install make so developer tools will work
-      - run: sudo apt-get --assume-yes install make
-
-      # Install gcc so ffi gem will install
-      - run: sudo apt-get --assume-yes install gcc
-
-      # Install bundler
-      - run: sudo gem install bundler
+      - run: |
+          mkdir ~/calculator/gecko/
+          mkdir ~/calculator/test-results/
+          sudo apt update
+          sudo apt-get --assume-yes install ruby-dev
+          sudo apt-get --assume-yes install make
+          sudo gem install bundler
+          sudo apt-get --assume-yes install firefox
+          wget -O geckodriver.tar.gz https://github.com/mozilla/geckodriver/releases/download/v0.19.0/geckodriver-v0.19.0-linux64.tar.gz
+          gunzip -c geckodriver.tar.gz | tar xopf -
+          chmod +x geckodriver
+          mv geckodriver ~/calculator/gecko/
+          echo 'export PATH=~/calculator/gecko:$PATH' >> $BASH_ENV
 
       # Bundle install dependencies
-      # - run: bundle install --path vendor/bundle
-      - run: bundle install
+      - run: bundle install --path vendor/bundle
+      # - run: bundle install
+
+      # Store bundle cache
+      - type: cache-save
+        key: calculator-cache-{{ checksum "Gemfile.lock" }}
+        paths:
+          - ./vendor/bundle
+
+
+
+      # # Update apt
+      # - run: sudo apt update
+
+      # Install Ruby for selenium/standalone-chrome
+      # - run: sudo apt-get --assume-yes install ruby-dev
+
+      # Install make so developer tools will work
+      # - run: sudo apt-get --assume-yes install make
+
+      # Install gcc so ffi gem will install
+      # - run: sudo apt-get --assume-yes install gcc
+
+      # Install bundler
+      # - run: sudo gem install bundler
+
+      # # Bundle install dependencies
+      # # - run: bundle install --path vendor/bundle
+      # - run: bundle install
 
       # Install firefox
-      - run: sudo apt-get --assume-yes install firefox
+      # - run: sudo apt-get --assume-yes install firefox
 
       # Download geckodriver
-      - run: wget -O geckodriver.tar.gz https://github.com/mozilla/geckodriver/releases/download/v0.19.0/geckodriver-v0.19.0-linux64.tar.gz
+      # - run: wget -O geckodriver.tar.gz https://github.com/mozilla/geckodriver/releases/download/v0.19.0/geckodriver-v0.19.0-linux64.tar.gz
 
       # Unzip geckodriver
-      - run:  gunzip -c geckodriver.tar.gz | tar xopf -
+      # - run:  gunzip -c geckodriver.tar.gz | tar xopf -
 
       # Make geckodriver executable
-      - run: chmod +x geckodriver
+      # - run: chmod +x geckodriver
 
-      # Create directory for geckodriver
-      - run: mkdir ~/calculator/gecko/
+      # # Create directory for geckodriver
+      # - run: mkdir ~/calculator/gecko/
 
       # Move geckodriver to directory
-      - run: mv geckodriver ~/calculator/gecko/
+      # - run: mv geckodriver ~/calculator/gecko/
 
       # Verify gecko driver is in directory
       # - run: ls ~/calculator/gecko/
       # geckodriver
 
       # Update PATH to include directory
-      - run: echo 'export PATH=~/calculator/gecko:$PATH' >> $BASH_ENV
+      # - run: echo 'export PATH=~/calculator/gecko:$PATH' >> $BASH_ENV
 
       # View PATH
       # - run: echo $PATH
       # /home/circleci/calculator/gecko:/usr/local/bundle/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
-      # Create directory for tests
-      - run: mkdir ~/calculator/test-results/
+      # # Create directory for tests
+      # - run: mkdir ~/calculator/test-results/
 
-      # Store bundle cache
-      - type: cache-save
-        key: collect-{{ checksum "Gemfile.lock" }}
-        paths:
-          - ./vendor/bundle
+      # # Store bundle cache
+      # - type: cache-save
+      #   key: collect-{{ checksum "Gemfile.lock" }}
+      #   paths:
+      #     - ./vendor/bundle
 
       # Run tests
       - run: rake test
