@@ -18,9 +18,6 @@ jobs:
       - type: cache-restore
         key: v1-dependencies-{{ checksum "Gemfile.lock" }}
 
-      # Update apt
-      - run: 
-
       # Install Ruby and dependencies needed for gems
       - run: |
           sudo apt update
