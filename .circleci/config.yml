@@ -64,8 +64,8 @@ jobs:
       - run: sudo gem install bundler
 
       # Bundle install dependencies
-      # - run: bundle install --path vendor/bundle
-      - run: bundle install
+      - run: bundle install --path vendor/bundle
+      # - run: bundle install
 
       # # Download & setup geckodriver
       # - run: |
@@ -83,6 +83,9 @@ jobs:
           - ./vendor/bundle
           - ./packages
           - ./gecko
+
+      # Install gems that don't work via --path vendor/bundle
+      - run: sudo gem install selenium-webdriver
 
       # Create directory for tests
       - run: mkdir -p ~/calculator/test-results/
