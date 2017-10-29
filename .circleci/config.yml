@@ -15,50 +15,60 @@ jobs:
       - checkout
 
       # Restore bundle cache
-      - type: cache-restore
-        key: v1-dependencies-{{ checksum "Gemfile.lock" }}
+      # - type: cache-restore
+      #   key: v1-dependencies-{{ checksum "Gemfile.lock" }}
 
       # Install Ruby and dependencies needed for gems
+      # - run: |
+      #     sudo apt update
+      #     sudo apt-get -y install ruby-dev
+      #     sudo apt-get -y install make
+      #     sudo apt-get -y install gcc
+
+      # Update apt and download package installers
       - run: |
           sudo apt update
-          sudo apt-get -y install ruby-dev
-          sudo apt-get -y install make
-          sudo apt-get -y install gcc
+          cd ~/calculator/vendor/packages
+          sudo apt-get download ruby-dev
+          sudo apt-get download make
+          sudo apt-get download gcc
+          sudo apt-get download firefox
 
-      # Install bundler
-      - run: sudo gem install bundler
 
-      # Bundle install dependencies
-      # - run: bundle install --path vendor/bundle
-      - run: bundle install
+      # # Install bundler
+      # - run: sudo gem install bundler
 
-      # Download & install firefox
-      - run: sudo apt-get -y install firefox
+      # # Bundle install dependencies
+      # # - run: bundle install --path vendor/bundle
+      # - run: bundle install
 
-      # Download & setup geckodriver
-      - run: |
-          wget -O geckodriver.tar.gz https://github.com/mozilla/geckodriver/releases/download/v0.19.0/geckodriver-v0.19.0-linux64.tar.gz
-          gunzip -c geckodriver.tar.gz | tar xopf -
-          chmod +x geckodriver
-          mkdir ~/calculator/gecko/
-          mv geckodriver ~/calculator/gecko/
-          echo 'export PATH=~/calculator/gecko:$PATH' >> $BASH_ENV
+      # # Download & install firefox
+      # # - run: sudo apt-get -y install firefox
 
-      # Create directory for tests
-      - run: mkdir ~/calculator/test-results/
+      # # Download & setup geckodriver
+      # - run: |
+      #     wget -O geckodriver.tar.gz https://github.com/mozilla/geckodriver/releases/download/v0.19.0/geckodriver-v0.19.0-linux64.tar.gz
+      #     gunzip -c geckodriver.tar.gz | tar xopf -
+      #     chmod +x geckodriver
+      #     mkdir ~/calculator/gecko/
+      #     mv geckodriver ~/calculator/gecko/
+      #     echo 'export PATH=~/calculator/gecko:$PATH' >> $BASH_ENV
 
-      # Store bundle cache
-      - type: cache-save
-        key: v1-dependencies-{{ checksum "Gemfile.lock" }}
-        paths:
-          - ./vendor/bundle
+      # # Create directory for tests
+      # - run: mkdir ~/calculator/test-results/
 
-      # Run tests
-      - run: rake test
+      # # Store bundle cache
+      # - type: cache-save
+      #   key: v1-dependencies-{{ checksum "Gemfile.lock" }}
+      #   paths:
+      #     - ./vendor/bundle
 
-      # collect reports
-      - store_test_results:
-          path: ~/calculator/test-results
-      - store_artifacts:
-          path: ~/calculator/test-results
-          destination: test-results
+      # # Run tests
+      # - run: rake test
+
+      # # collect reports
+      # - store_test_results:
+      #     path: ~/calculator/test-results
+      # - store_artifacts:
+      #     path: ~/calculator/test-results
+      #     destination: test-results
