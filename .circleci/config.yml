@@ -45,10 +45,10 @@ jobs:
 
       # Install cached packages and update PATH
       - run: |
-          sudo apt -y install ./ruby-dev*
-          sudo apt -y install ./make*
-          sudo apt -y install ./gcc*
-          sudo apt -y install ./firefox*
+          sudo apt -y install ./packages/ruby-dev*
+          sudo apt -y install ./packages/make*
+          sudo apt -y install ./packages/gcc*
+          sudo apt -y install ./packages/firefox*
           echo 'export PATH=~/calculator/gecko:$PATH' >> $BASH_ENV
 
       # Install bundler
