@@ -5,17 +5,18 @@
 version: 2
 jobs:
   build:
+
     working_directory: ~/calculator
+
     docker:
-       # - image: circleci/ruby:2.4.1-node-browsers
-       # - image: circleci/ruby:2.4.1-browsers
        - image: selenium/standalone-chrome
+
     steps:
       - checkout
 
       # Restore bundle cache
       - type: cache-restore
-        key: v1-dependencies-{{ checksum "Gemfile.lock" }}
+        key: v2-dependencies-{{ checksum "Gemfile.lock" }}
 
       # Update apt
       - run: sudo apt update
@@ -74,20 +75,8 @@ jobs:
         paths:
           - ./vendor/bundle
 
-      # Install selenium-webdriver - have to run here or gem not found
-      # - run: sudo gem install selenium-webdriver
-
       # Run tests
-      # - type: shell
-      #   command: rake test
-
-      # Run tests
-      # - run: ruby tests/test_firefox.rb  # works!
       - run: rake test
-
-      # - type: store_test_results
-      #   path: ~/calculator/test-results
-
 
       # collect reports
       - store_test_results:
