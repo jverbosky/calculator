@@ -27,7 +27,6 @@ jobs:
 
       # Update apt and download package installers
       - run: |
-          sudo apt update
           mkdir -p ~/calculator/packages
           cd ~/calculator/packages
           sudo apt-get download rubygems-integration
@@ -35,9 +34,21 @@ jobs:
           sudo apt-get download ruby2.3
           sudo apt-get download ruby2.3
           sudo apt-get download ruby2.3-dev
-          sudo apt-get download make
-          sudo apt-get download gcc
-          sudo apt-get download firefox
+
+
+      # # Update apt and download package installers
+      # - run: |
+      #     sudo apt update
+      #     mkdir -p ~/calculator/packages
+      #     cd ~/calculator/packages
+      #     sudo apt-get download rubygems-integration
+      #     sudo apt-get download libruby2.3
+      #     sudo apt-get download ruby2.3
+      #     sudo apt-get download ruby2.3
+      #     sudo apt-get download ruby2.3-dev
+      #     sudo apt-get download make
+      #     sudo apt-get download gcc
+      #     sudo apt-get download firefox
 
       # Download & setup geckodriver
       - run: |
