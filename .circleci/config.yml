@@ -85,7 +85,7 @@ jobs:
           - ./gecko
 
       # Install gems that don't work via --path vendor/bundle
-      - run: sudo gem install selenium-webdriver
+      # - run: sudo gem install selenium-webdriver
 
       # Create directory for tests
       - run: mkdir -p ~/calculator/test-results/
