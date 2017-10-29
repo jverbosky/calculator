@@ -15,8 +15,8 @@ jobs:
       - checkout
 
       # Restore bundle cache
-      # - type: cache-restore
-      #   key: v1-dependencies-{{ checksum "Gemfile.lock" }}
+      - type: cache-restore
+        key: v2-dependencies-{{ checksum "Gemfile.lock" }}
 
       # Install Ruby and dependencies needed for gems
       # - run: |
@@ -35,13 +35,28 @@ jobs:
           sudo apt-get download gcc
           sudo apt-get download firefox
 
+      # Download & setup geckodriver
+      - run: |
+          wget -O geckodriver.tar.gz https://github.com/mozilla/geckodriver/releases/download/v0.19.0/geckodriver-v0.19.0-linux64.tar.gz
+          gunzip -c geckodriver.tar.gz | tar xopf -
+          chmod +x geckodriver
+          mkdir ~/calculator/gecko/
+          mv geckodriver ~/calculator/gecko/
 
-      # # Install bundler
-      # - run: sudo gem install bundler
+      # Install cached packages and update PATH
+      - run: |
+          sudo apt -y install ./ruby-dev*
+          sudo apt -y install ./make*
+          sudo apt -y install ./gcc*
+          sudo apt -y install ./firefox*
+          echo 'export PATH=~/calculator/gecko:$PATH' >> $BASH_ENV
 
-      # # Bundle install dependencies
-      # # - run: bundle install --path vendor/bundle
-      # - run: bundle install
+      # Install bundler
+      - run: sudo gem install bundler
+
+      # Bundle install dependencies
+      # - run: bundle install --path vendor/bundle
+      - run: bundle install
 
       # # Download & install firefox
       # # - run: sudo apt-get -y install firefox
@@ -55,21 +70,23 @@ jobs:
       #     mv geckodriver ~/calculator/gecko/
       #     echo 'export PATH=~/calculator/gecko:$PATH' >> $BASH_ENV
 
-      # # Create directory for tests
-      # - run: mkdir ~/calculator/test-results/
+      # Store bundle cache
+      - type: cache-save
+        key: v2-dependencies-{{ checksum "Gemfile.lock" }}
+        paths:
+          - ./vendor/bundle
+          - ./packages
+          - ./gecko
 
-      # # Store bundle cache
-      # - type: cache-save
-      #   key: v1-dependencies-{{ checksum "Gemfile.lock" }}
-      #   paths:
-      #     - ./vendor/bundle
+      # # Create directory for tests
+      - run: mkdir ~/calculator/test-results/
 
       # # Run tests
-      # - run: rake test
+      - run: rake test
 
       # # collect reports
-      # - store_test_results:
-      #     path: ~/calculator/test-results
+      - store_test_results:
+          path: ~/calculator/test-results
       # - store_artifacts:
       #     path: ~/calculator/test-results
       #     destination: test-results
