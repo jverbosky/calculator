@@ -15,8 +15,8 @@ jobs:
       - checkout
 
       # Restore bundle cache
-      # - type: cache-restore
-      #   key: v1-calculator-cache-{{ checksum "~/calculator/.circleci/config.yml" }}
+      - type: cache-restore
+        key: v1-calculator-cache-{{ checksum "~/calculator/.circleci/config.yml" }}
 
       # Install Ruby and dependencies needed for gems
       # - run: |
@@ -25,30 +25,15 @@ jobs:
       #     sudo apt-get -y install make
       #     sudo apt-get -y install gcc
 
-      # Update apt and download package installers
+      # # Update apt and download package installers
       - run: |
+          sudo apt update
           mkdir -p ~/calculator/packages
           cd ~/calculator/packages
-          sudo apt-get download rubygems-integration
-          sudo apt-get download libruby2.3
-          sudo apt-get download ruby2.3
-          sudo apt-get download ruby2.3
           sudo apt-get download ruby2.3-dev
-
-
-      # # Update apt and download package installers
-      # - run: |
-      #     sudo apt update
-      #     mkdir -p ~/calculator/packages
-      #     cd ~/calculator/packages
-      #     sudo apt-get download rubygems-integration
-      #     sudo apt-get download libruby2.3
-      #     sudo apt-get download ruby2.3
-      #     sudo apt-get download ruby2.3
-      #     sudo apt-get download ruby2.3-dev
-      #     sudo apt-get download make
-      #     sudo apt-get download gcc
-      #     sudo apt-get download firefox
+          sudo apt-get download make
+          sudo apt-get download gcc
+          sudo apt-get download firefox
 
       # Download & setup geckodriver
       - run: |
@@ -58,22 +43,14 @@ jobs:
           mkdir -p ~/calculator/gecko/
           mv geckodriver ~/calculator/gecko/
 
-      # Install cached packages and update PATH
-      # - run: |
-      #     sudo gdebi --non-interactive ./packages/ruby-dev*
-      #     sudo gdebi --non-interactive ./packages/make*
-      #     sudo gdebi --non-interactive ./packages/gcc*
-      #     sudo gdebi --non-interactive ./packages/firefox*
-      #     echo 'export PATH=~/calculator/gecko:$PATH' >> $BASH_ENV
-
       # # Install cached packages and update PATH
-      # - run: |
-      #     sudo apt-get -y install gdebi
-      #     sudo gdebi --non-interactive ./packages/ruby-dev*
-      #     sudo gdebi --non-interactive ./packages/make*
-      #     sudo gdebi --non-interactive ./packages/gcc*
-      #     sudo gdebi --non-interactive ./packages/firefox*
-      #     echo 'export PATH=~/calculator/gecko:$PATH' >> $BASH_ENV
+      - run: |
+          sudo apt-get -y install gdebi-core
+          sudo gdebi --non-interactive ./packages/ruby-dev*
+          sudo gdebi --non-interactive ./packages/make*
+          sudo gdebi --non-interactive ./packages/gcc*
+          sudo gdebi --non-interactive ./packages/firefox*
+          echo 'export PATH=~/calculator/gecko:$PATH' >> $BASH_ENV
 
       # Install cached packages and update PATH
       # - run: |
@@ -84,11 +61,11 @@ jobs:
       #     echo 'export PATH=~/calculator/gecko:$PATH' >> $BASH_ENV
 
       # Install bundler
-      # - run: sudo gem install bundler
+      - run: sudo gem install bundler
 
       # Bundle install dependencies
       # - run: bundle install --path vendor/bundle
-      # - run: bundle install
+      - run: bundle install
 
       # # Download & setup geckodriver
       # - run: |
@@ -100,22 +77,22 @@ jobs:
       #     echo 'export PATH=~/calculator/gecko:$PATH' >> $BASH_ENV
 
       # Store bundle cache
-      # - type: cache-save
-      #   key: v1-calculator-cache-{{ checksum "~/calculator/.circleci/config.yml" }}
-      #   paths:
-      #     - ./vendor/bundle
-      #     - ./packages
-      #     - ./gecko
+      - type: cache-save
+        key: v1-calculator-cache-{{ checksum "~/calculator/.circleci/config.yml" }}
+        paths:
+          - ./vendor/bundle
+          - ./packages
+          - ./gecko
 
-      # # Create directory for tests
-      # - run: mkdir -p ~/calculator/test-results/
+      # Create directory for tests
+      - run: mkdir -p ~/calculator/test-results/
 
-      # # Run tests
-      # - run: rake test
+      # Run tests
+      - run: rake test
 
-      # # collect reports
-      # - store_test_results:
-      #     path: ~/calculator/test-results
+      # collect reports
+      - store_test_results:
+          path: ~/calculator/test-results
       # - store_artifacts:
       #     path: ~/calculator/test-results
       #     destination: test-results
