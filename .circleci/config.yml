@@ -16,7 +16,7 @@ jobs:
 
       # Restore bundle cache
       - type: cache-restore
-        key: v1-calculator-cache-{{ checksum "/tests/config.yml" }}
+        key: v1-calculator-cache-{{ checksum "~/calculator/tests/config.yml" }}
 
       # Install Ruby and dependencies needed for gems
       # - run: |
@@ -81,7 +81,7 @@ jobs:
 
       # Store bundle cache
       - type: cache-save
-        key: v1-calculator-cache-{{ checksum "/tests/config.yml" }}
+        key: v1-calculator-cache-{{ checksum "~/calculator/tests/config.yml" }}
         paths:
           - ./vendor/bundle
           - ./packages
