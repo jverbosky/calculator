@@ -61,7 +61,7 @@ jobs:
       #     echo 'export PATH=~/calculator/gecko:$PATH' >> $BASH_ENV
 
       # Install bundler
-      # - run: sudo gem install bundler
+      - run: sudo gem install bundler
 
       # Bundle install dependencies
       # - run: bundle install --path vendor/bundle
