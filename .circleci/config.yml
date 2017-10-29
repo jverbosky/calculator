@@ -16,9 +16,9 @@ jobs:
 
       # Restore bundle cache
       - type: cache-restore
-        key: v1-calculator-{{ checksum "~/calculator/.circleci/config.yml" }}
+        key: v1-calculator-{{ checksum "Gemfile.lock" }}
 
-      # # Update apt and download package installers
+      # Update apt and download package installers
       - run: |
           sudo apt update
           mkdir -p ~/calculator/packages
@@ -36,7 +36,7 @@ jobs:
           mkdir -p ~/calculator/gecko/
           mv geckodriver ~/calculator/gecko/
 
-      # # Install cached packages and update PATH
+      # Install cached packages and update PATH
       - run: |
           sudo apt-get -y install gdebi-core
           sudo gdebi --non-interactive ./packages/ruby-dev*
@@ -49,25 +49,18 @@ jobs:
       - run: sudo gem install bundler
 
       # Bundle install dependencies
-      # - run: bundle install --path vendor/bundle
       - run: bundle install
 
       # Store bundle cache
       - type: cache-save
-        key: v1-calculator-{{ checksum "~/calculator/.circleci/config.yml" }}
+        key: v1-calculator-{{ checksum "Gemfile.lock" }}
         paths:
           - ./packages
           - ./gecko
 
-      # # Store bundle cache
-      # - type: cache-save
-      #   key: v1-calculator-{{ checksum "~/calculator/.circleci/config.yml" }}
-      #   paths:
-      #     - ./vendor/bundle
-      #     - ./packages
-      #     - ./gecko
-
-      # Install gems that don't work via --path vendor/bundle
+      # Due to selenium-webdriver not installing via --path vendor/bundle
+      # have to reinstall here when using that option,
+      # so it's faster to skip caching the gems and to just run bundle install
       # - run: sudo gem install selenium-webdriver
 
       # Create directory for tests
