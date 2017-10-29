@@ -28,6 +28,7 @@ jobs:
       # Update apt and download package installers
       - run: |
           sudo apt update
+          mkdir ~/calculator/vendor/packages
           cd ~/calculator/vendor/packages
           sudo apt-get download ruby-dev
           sudo apt-get download make
