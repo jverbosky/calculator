@@ -15,8 +15,8 @@ jobs:
       - checkout
 
       # Restore bundle cache
-      - type: cache-restore
-        key: v1-calculator-cache-{{ checksum "~/calculator/.circleci/config.yml" }}
+      # - type: cache-restore
+      #   key: v1-calculator-cache-{{ checksum "~/calculator/.circleci/config.yml" }}
 
       # Install Ruby and dependencies needed for gems
       # - run: |
@@ -44,13 +44,21 @@ jobs:
           mv geckodriver ~/calculator/gecko/
 
       # Install cached packages and update PATH
-      - run: |
-          sudo apt-get -y install gdebi
-          sudo gdebi --non-interactive ./packages/ruby-dev*
-          sudo gdebi --non-interactive ./packages/make*
-          sudo gdebi --non-interactive ./packages/gcc*
-          sudo gdebi --non-interactive ./packages/firefox*
-          echo 'export PATH=~/calculator/gecko:$PATH' >> $BASH_ENV
+      # - run: |
+      #     sudo gdebi --non-interactive ./packages/ruby-dev*
+      #     sudo gdebi --non-interactive ./packages/make*
+      #     sudo gdebi --non-interactive ./packages/gcc*
+      #     sudo gdebi --non-interactive ./packages/firefox*
+      #     echo 'export PATH=~/calculator/gecko:$PATH' >> $BASH_ENV
+
+      # # Install cached packages and update PATH
+      # - run: |
+      #     sudo apt-get -y install gdebi
+      #     sudo gdebi --non-interactive ./packages/ruby-dev*
+      #     sudo gdebi --non-interactive ./packages/make*
+      #     sudo gdebi --non-interactive ./packages/gcc*
+      #     sudo gdebi --non-interactive ./packages/firefox*
+      #     echo 'export PATH=~/calculator/gecko:$PATH' >> $BASH_ENV
 
       # Install cached packages and update PATH
       # - run: |
@@ -61,11 +69,11 @@ jobs:
       #     echo 'export PATH=~/calculator/gecko:$PATH' >> $BASH_ENV
 
       # Install bundler
-      - run: sudo gem install bundler
+      # - run: sudo gem install bundler
 
       # Bundle install dependencies
       # - run: bundle install --path vendor/bundle
-      - run: bundle install
+      # - run: bundle install
 
       # # Download & setup geckodriver
       # - run: |
@@ -77,22 +85,22 @@ jobs:
       #     echo 'export PATH=~/calculator/gecko:$PATH' >> $BASH_ENV
 
       # Store bundle cache
-      - type: cache-save
-        key: v1-calculator-cache-{{ checksum "~/calculator/.circleci/config.yml" }}
-        paths:
-          - ./vendor/bundle
-          - ./packages
-          - ./gecko
+      # - type: cache-save
+      #   key: v1-calculator-cache-{{ checksum "~/calculator/.circleci/config.yml" }}
+      #   paths:
+      #     - ./vendor/bundle
+      #     - ./packages
+      #     - ./gecko
 
       # # Create directory for tests
-      - run: mkdir -p ~/calculator/test-results/
+      # - run: mkdir -p ~/calculator/test-results/
 
       # # Run tests
-      - run: rake test
+      # - run: rake test
 
       # # collect reports
-      - store_test_results:
-          path: ~/calculator/test-results
+      # - store_test_results:
+      #     path: ~/calculator/test-results
       # - store_artifacts:
       #     path: ~/calculator/test-results
       #     destination: test-results
