@@ -15,8 +15,8 @@ jobs:
       - checkout
 
       # Restore bundle cache
-      # - type: cache-restore
-      #   key: v1-calculator-cache-{{ checksum "~/calculator/.circleci/config.yml" }}
+      - type: cache-restore
+        key: v1-calculator-{{ checksum "~/calculator/.circleci/config.yml" }}
 
       # Install Ruby and dependencies needed for gems
       # - run: |
@@ -30,7 +30,7 @@ jobs:
           sudo apt update
           mkdir -p ~/calculator/packages
           cd ~/calculator/packages
-          sudo apt-get download ruby2.3-dev
+          sudo apt-get download ruby-dev
           sudo apt-get download make
           sudo apt-get download gcc
           sudo apt-get download firefox
@@ -77,12 +77,12 @@ jobs:
       #     echo 'export PATH=~/calculator/gecko:$PATH' >> $BASH_ENV
 
       # Store bundle cache
-      # - type: cache-save
-      #   key: v1-calculator-cache-{{ checksum "~/calculator/.circleci/config.yml" }}
-      #   paths:
-      #     - ./vendor/bundle
-      #     - ./packages
-      #     - ./gecko
+      - type: cache-save
+        key: v1-calculator-{{ checksum "~/calculator/.circleci/config.yml" }}
+        paths:
+          - ./vendor/bundle
+          - ./packages
+          - ./gecko
 
       # Create directory for tests
       - run: mkdir -p ~/calculator/test-results/
