@@ -75,3 +75,10 @@ jobs:
       # - store_artifacts:
       #     path: ~/calculator/test-results
       #     destination: test-results
+
+# Note:
+# Before caching packages:
+# 1:59
+
+# After caching packages:
+# 1:22
